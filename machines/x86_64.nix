@@ -12,6 +12,11 @@
   # "error switching console mode" on boot.
   boot.loader.systemd-boot.consoleMode = "0";
 
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nixos-plasma6-24.05-x86_64";
+    fsType = "ext4";
+  };
+
   services.xserver = {
     enable = true;
     xkb.layout = "us";
