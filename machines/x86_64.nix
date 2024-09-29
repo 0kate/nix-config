@@ -22,9 +22,9 @@
   fonts = {
     fontDir.enable = true;
 
-    packages = [
-      pkgs.fira-code
-      pkgs.jetbrains-mono
+    packages = with pkgs; [
+      fira-code
+      jetbrains-mono
     ];
   };
 
