@@ -23,10 +23,10 @@
       inputs.neovim-nightly-overlay.overlays.default
     ];
     machineConfig  = ./machines/wsl.nix;
-    userHomeConfig = ./users/0kate/home.nix;
-    userOSConfig   = ./users/0kate/nixos.nix;
+    userHomeConfig = ./users/okate/home.nix;
+    userOSConfig   = ./users/okate/nixos.nix;
   in {
-    nixosConfigurations.vm-intel = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.vm-x86_64 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
       modules = [
