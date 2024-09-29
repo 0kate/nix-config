@@ -15,8 +15,8 @@
   services.xserver = {
     enable = true;
     xkb.layout = "us";
-    desktopManager.plasma5 = true;
-    displayManager.lightdm = true;
+    desktopManager.plasma5.enable = true;
+    displayManager.lightdm.enable = true;
   };
 
   fonts = {
