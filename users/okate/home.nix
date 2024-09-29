@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, isWSL, ... }:
 { config, pkgs, lib, ... }:
 {
   home.stateVersion = "22.11";
@@ -22,7 +22,9 @@
     unzip
     vim
     zellij
-  ];
+  ] ++ (lib.optionals (!isWSL) [
+    wezterm
+  ]);
 
   home.sessionVariables = {
     EDITOR = "nvim";

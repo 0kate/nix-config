@@ -26,6 +26,27 @@
     userHomeConfig = ./users/0kate/home.nix;
     userOSConfig   = ./users/0kate/nixos.nix;
   in {
+    nixosConfigurations.vm-intel = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+
+      modules = [
+        nixos-wsl.nixosModules.default
+        {
+          nixpkgs.overlays = overlays;
+        }
+        machineConfig
+        userOSConfig
+        home-manager.nixosModules.home-manager {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users."okate" = import userHomeConfig {
+            inputs = inputs;
+            isWSL  = false;
+          };
+        }
+      ];
+    };
+
     nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
@@ -39,9 +60,9 @@
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          # home-manager.users."0kate" = import ./users/0kate/home.nix;
-          home-manager.users."0kate" = import userHomeConfig {
+          home-manager.users."okate" = import userHomeConfig {
             inputs = inputs;
+            isWSL  = true;
           };
         }
       ];

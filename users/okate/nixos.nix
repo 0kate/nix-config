@@ -2,9 +2,9 @@
 {
   programs.zsh.enable = true;
 
-  users.users."0kate" = {
+  users.users."okate" = {
     isNormalUser = true;
-    home = "/home/0kate";
+    home = "/home/okate";
     extraGroups = [ "docker" "wheel" ];
     shell = pkgs.zsh;
   };
