@@ -13,8 +13,13 @@
   boot.loader.systemd-boot.consoleMode = "0";
 
   fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos-plasma6-24.05-x86_64";
+    device = "/dev/disk/by-label/nixos";
     fsType = "ext4";
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/boot";
+    fsType = "vfat";
   };
 
   services.xserver = {
