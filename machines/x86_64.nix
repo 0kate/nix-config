@@ -16,7 +16,7 @@
     enable = true;
     xkb.layout = "us";
     desktopManager.plasma5.enable = true;
-    displayManager.lightdm.enable = true;
+    displayManager.sddm.enable = true;
   };
 
   fonts = {
