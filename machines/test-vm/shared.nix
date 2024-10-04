@@ -13,4 +13,5 @@
   ];
 
   virtualisation.docker.enable = true;
+  virtualisation.virtualbox.guest.enable = true;
 }

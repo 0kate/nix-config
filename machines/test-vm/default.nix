@@ -14,8 +14,6 @@
     };
   };
 
-  virtualisation.virtualbox.guest.enable = true;
-
   services.xserver = {
     enable = true;
     xkb.layout = "us";
@@ -23,13 +21,12 @@
   };
   services.displayManager.sddm.enable = true;
 
-  fonts = {
-    fontDir.enable = true;
   i18n.inputMethod = {
     enabled = "fcitx5";
     fcitx5.addonns = [ pkgs.fcitx5-mozc ];
   };
 
+  fonts = {
     packages = with pkgs; [
       dejavu_fonts
       fira-code
@@ -40,7 +37,7 @@
       noto-fonts-extra
       noto-fonts-emoji
     ];
-
+    fontDir.enable = true;
     fontconfig = {
       enable = true;
       defaultFonts = {
