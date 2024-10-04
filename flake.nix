@@ -4,7 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
@@ -19,13 +21,9 @@
 
   outputs = { nixpkgs, home-manager, nixos-wsl, ... }@inputs:
   let
-    user = "okate";
     overlays = [
       inputs.neovim-nightly-overlay.overlays.default
     ];
-    wslConfig  = ./machines/wsl;
-    userHomeConfig = ./users/okate/home.nix;
-    userOSConfig   = ./users/okate/nixos.nix;
 
     mkSystem = import ./lib/mkSystem.nix {
       inherit nixpkgs overlays inputs;
