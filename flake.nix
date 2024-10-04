@@ -23,7 +23,8 @@
       inputs.neovim-nightly-overlay.overlays.default
     ];
     wslConfig  = ./machines/wsl.nix;
-    vmX8664Config  = ./machines/x86_64.nix;
+    # vmX8664Config  = ./machines/x86_64.nix;
+    testVMConfig   = ./machines/test-vm;
     userHomeConfig = ./users/okate/home.nix;
     userOSConfig   = ./users/okate/nixos.nix;
   in {
@@ -35,7 +36,8 @@
         {
           nixpkgs.overlays = overlays;
         }
-        vmX8664Config
+        # vmX8664Config
+        testVMConfig
         userOSConfig
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
