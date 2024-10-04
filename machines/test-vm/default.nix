@@ -16,14 +16,17 @@
 
   services.xserver = {
     enable = true;
-    xkb.layout = "us";
+    xkb = {
+      layout = "us";
+      options = "ctrl:nocaps";
+    };
     desktopManager.plasma5.enable = true;
   };
   services.displayManager.sddm.enable = true;
 
   i18n.inputMethod = {
     enabled = "fcitx5";
-    fcitx5.addonns = [ pkgs.fcitx5-mozc ];
+    fcitx5.addons = [ pkgs.fcitx5-mozc ];
   };
 
   fonts = {
