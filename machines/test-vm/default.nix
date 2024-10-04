@@ -24,6 +24,8 @@
   services.desktopManager.plasma6.enable = true;
   services.displayManager.sddm.enable = true;
 
+  programs.partition-manager.enable = true;
+
   i18n.inputMethod = {
     enabled = "fcitx5";
     fcitx5.addons = [ pkgs.fcitx5-mozc ];
