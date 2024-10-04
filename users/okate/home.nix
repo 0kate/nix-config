@@ -4,7 +4,6 @@
   home.stateVersion = "22.11";
 
   home.packages = with pkgs; [
-    asdf-vm
     clang
     cmake
     curl
@@ -14,6 +13,7 @@
     git
     lazydocker
     lazygit
+    mise
     ninja
     ripgrep
     rustup
@@ -39,14 +39,11 @@
     "nvim/init.lua".text = builtins.readFile ./nvim/init.lua;
     "nvim/neovim.yml".text = builtins.readFile ./nvim/neovim.yml;
     "nvim/selene.toml".text = builtins.readFile ./nvim/selene.toml;
+    "mise/config.toml".text = builtins.readFile ./mise.toml;
   };
   
   home.file.".config/nvim/lua" = {
     source = ./nvim/lua;
-  };
-
-  home.file.".tool-versions" = {
-    text = builtins.readFile ./global-tool-versions;
   };
 
   programs.zsh = {
