@@ -51,6 +51,7 @@
 
   xdg.configFile = {
     "sheldon/plugins.toml".text = builtins.readFile ./sheldon.toml;
+    "zellij/config.kdl".text = builtins.readFile ./zellij.kdl;
   };
 
   programs.zsh = {
