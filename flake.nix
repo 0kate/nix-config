@@ -19,8 +19,12 @@
 
   outputs = { nixpkgs, home-manager, nixos-wsl, ... }@inputs:
   let
+    user = "okate";
     overlays = [
       inputs.neovim-nightly-overlay.overlays.default
+    ];
+    allowedUnfreePackages = [
+      "google-chrome"
     ];
     wslConfig  = ./machines/wsl.nix;
     # vmX8664Config  = ./machines/x86_64.nix;
@@ -42,10 +46,11 @@
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users."okate" = import userHomeConfig {
+          home-manager.users.${user} = import userHomeConfig {
             inputs = inputs;
             isWSL  = false;
           };
+          home-manager.extraSpecialArgs = { inherit allowedUnfreePackages user; };
         }
       ];
     };
