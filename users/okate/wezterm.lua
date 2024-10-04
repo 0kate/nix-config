@@ -12,8 +12,10 @@ config.debug_key_events = true
 config.default_cursor_style = 'BlinkingBlock'
 config.enable_scroll_bar = false
 config.font = wezterm.font_with_fallback({
-  { family = 'Hack Nerd Font' },
-  { family = 'Hack Nerd Font', assume_emoji_presentation = true },
+  -- { family = 'Hack Nerd Font' },
+  -- { family = 'Hack Nerd Font', assume_emoji_presentation = true },
+  { family = 'JetBrains Mono' },
+  { family = 'JetBrains Mono', assume_emoji_presentation = true },
 })
 config.line_height = 1.2
 config.use_ime = true

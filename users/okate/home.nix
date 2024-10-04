@@ -10,6 +10,7 @@
     curl
     direnv
     eza
+    firefox
     gettext
     git
     lazydocker
@@ -48,6 +49,12 @@
       ls  = "eza --icons";
       zj  = "zellij";
     };
+  };
+
+  programs.git = {
+    enable = true;
+    userName = "0kate";
+    userEmail = "o.keito317@gmail.com";
   };
 
   programs.neovim = {
