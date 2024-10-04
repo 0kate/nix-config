@@ -26,8 +26,8 @@ WORDCHARS=${WORDCHARS//[_]}
 # local executable
 export PATH=$PATH:$HOME/.local/bin
 
-# asdf
-# source $HOME/.asdf/asdf.sh
+# mise
+eval "$(/etc/profiles/per-user/okate/bin/mise activate zsh)"
 
 # rustup & cargo
 # source $HOME/.cargo/env
