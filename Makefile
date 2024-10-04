@@ -1,7 +1,7 @@
 REBUILD_CMD := sudo nixos-rebuild switch --flake
 
-vm-x86_64.rebuild:
-	$(REBUILD_CMD) '.#vm-x86_64'
+test-vm.rebuild:
+	$(REBUILD_CMD) '.#test-vm'
 
 wsl.rebuild:
 	$(REBUILD_CMD) '.#wsl'

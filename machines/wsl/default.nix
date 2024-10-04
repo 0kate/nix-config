@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ./shared.nix
+    ../shared.nix
   ];
 
   wsl = {

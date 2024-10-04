@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ./shared.nix
+    ../shared.nix
     ./hardware-configuration.nix
   ];
 
@@ -50,6 +50,8 @@
       subpixel = { lcdfilter = "light"; };
     };
   };
+
+  virtualisation.virtualbox.guest.enable = true;
 
   system.stateVersion = "24.05";
 }
