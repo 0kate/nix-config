@@ -2,6 +2,8 @@
 name:
 { system, user, wsl ? false }:
 let
+  isWSL = wsl;
+
   machineConfig   = ../machines/${name};
   userHomeConfig = ../users/${user}/home.nix;
   userOSConfig   = ../users/${user}/nixos.nix;
@@ -20,7 +22,7 @@ in nixpkgs.lib.nixosSystem {
       home-manager.useUserPackages = true;
       home-manager.users.${user} = import userHomeConfig {
         inputs = inputs;
-        isWSL  = false;
+        isWSL  = isWSL;
       };
     }
   ];
