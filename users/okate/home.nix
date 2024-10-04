@@ -25,6 +25,7 @@
   ] ++ (lib.optionals (!isWSL) [
     firefox
     google-chrome
+    slack
     wezterm
   ]);
 
