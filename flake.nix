@@ -24,56 +24,22 @@
       inputs.neovim-nightly-overlay.overlays.default
     ];
     wslConfig  = ./machines/wsl;
-    testVMConfig   = ./machines/test-vm;
     userHomeConfig = ./users/okate/home.nix;
     userOSConfig   = ./users/okate/nixos.nix;
+
+    mkSystem = import ./lib/mkSystem.nix {
+      inherit nixpkgs overlays inputs;
+    };
   in {
-    nixosConfigurations.test-vm = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.test-vm = mkSystem "test-vm" {
       system = "x86_64-linux";
-
-      modules = [
-        {
-          nixpkgs.overlays = overlays;
-        }
-        testVMConfig
-        userOSConfig
-        home-manager.nixosModules.home-manager {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.${user} = import userHomeConfig {
-            inputs = inputs;
-            isWSL  = false;
-          };
-        }
-      ];
-
-      specialArgs = {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          config.allowUnfree = true;
-        };
-      };
+      user   = "okate";
     };
 
-    nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.wsl = mkSystem "wsl" {
       system = "x86_64-linux";
-
-      modules = [
-        nixos-wsl.nixosModules.default
-        {
-          nixpkgs.overlays = overlays;
-        }
-        wslConfig
-        userOSConfig
-        home-manager.nixosModules.home-manager {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.${user} = import userHomeConfig {
-            inputs = inputs;
-            isWSL  = true;
-          };
-        }
-      ];
+      user   = "okate";
+      wsl    = true;
     };
   };
 }

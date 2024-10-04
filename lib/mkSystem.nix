@@ -15,6 +15,7 @@ in nixpkgs.lib.nixosSystem {
   modules = [
     { nixpkgs.overlays = overlays; }
     { nixpkgs.config.allowUnfree = true; }
+    (if isWSL then inputs.nixos-wsl.nixosModules.default else {})
     machineConfig
     userOSConfig
     home-manager.nixosModules.home-manager {
