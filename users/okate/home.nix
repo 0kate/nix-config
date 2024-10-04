@@ -10,10 +10,8 @@
     curl
     direnv
     eza
-    firefox
     gettext
     git
-    google-chrome
     lazydocker
     lazygit
     ninja
@@ -25,6 +23,8 @@
     vim
     zellij
   ] ++ (lib.optionals (!isWSL) [
+    firefox
+    google-chrome
     wezterm
   ]);
 
