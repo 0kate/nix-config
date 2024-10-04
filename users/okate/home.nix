@@ -13,6 +13,7 @@
     firefox
     gettext
     git
+    google-chrome
     lazydocker
     lazygit
     ninja
