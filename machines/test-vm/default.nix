@@ -27,9 +27,24 @@
     fontDir.enable = true;
 
     packages = with pkgs; [
+      dejavu_fonts
       fira-code
+      fira-code-symbols
       jetbrains-mono
+      noto-fonts
+      noto-fonts-cjk
+      noto-fonts-extra
+      noto-fonts-emoji
     ];
+
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        sansSerif = [ "Noto Sans CJK JP" "DejaVu Sans" ];
+        serif = [ "Noto Serif JP" "DejaVu Serif" ];
+      };
+      subpixel = { lcdfilter = "light"; };
+    };
   };
 
   system.stateVersion = "24.05";
