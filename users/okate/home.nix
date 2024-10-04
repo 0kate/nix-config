@@ -31,27 +31,21 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
+
+  xdg.configFile = {
+    "sheldon/plugins.toml".text = builtins.readFile ./sheldon.toml;
+    "zellij/config.kdl".text = builtins.readFile ./zellij.kdl;
+    "nvim/init.lua".text = builtins.readFile ./nvim/init.lua;
+    "nvim/neovim.yml".text = builtins.readFile ./nvim/neovim.yml;
+    "nvim/selene.toml".text = builtins.readFile ./nvim/selene.toml;
+  };
   
-  home.file.".config/nvim/init.lua" = {
-    text = builtins.readFile ./nvim/init.lua;
-  };
-  home.file.".config/nvim/neovim.yml" = {
-    text = builtins.readFile ./nvim/neovim.yml;
-  };
-  home.file.".config/nvim/selene.toml" = {
-    text = builtins.readFile ./nvim/selene.toml;
-  };
   home.file.".config/nvim/lua" = {
     source = ./nvim/lua;
   };
 
   home.file.".tool-versions" = {
     text = builtins.readFile ./global-tool-versions;
-  };
-
-  xdg.configFile = {
-    "sheldon/plugins.toml".text = builtins.readFile ./sheldon.toml;
-    "zellij/config.kdl".text = builtins.readFile ./zellij.kdl;
   };
 
   programs.zsh = {
