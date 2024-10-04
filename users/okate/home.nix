@@ -30,6 +30,10 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
+  
+  home.file.".config/nvim" = {
+    source = ./nvim;
+  };
 
   home.file.".tool-versions" = {
     text = builtins.readFile ./global-tool-versions;
