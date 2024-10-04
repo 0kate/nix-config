@@ -23,9 +23,6 @@
     overlays = [
       inputs.neovim-nightly-overlay.overlays.default
     ];
-    allowedUnfreePackages = [
-      "google-chrome"
-    ];
     wslConfig  = ./machines/wsl.nix;
     # vmX8664Config  = ./machines/x86_64.nix;
     testVMConfig   = ./machines/test-vm;
@@ -50,9 +47,15 @@
             inputs = inputs;
             isWSL  = false;
           };
-          home-manager.extraSpecialArgs = { inherit allowedUnfreePackages user; };
         }
       ];
+
+      specialArgs = {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+      };
     };
 
     nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
