@@ -58,7 +58,7 @@
 
   programs.git = {
     enable = true;
-    userName = "0kate";
+    userName = "keito-osaki";
     userEmail = "o.keito317@gmail.com";
   };
 
