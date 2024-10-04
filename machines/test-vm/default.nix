@@ -25,6 +25,10 @@
 
   fonts = {
     fontDir.enable = true;
+  i18n.inputMethod = {
+    enabled = "fcitx5";
+    fcitx5.addonns = [ pkgs.fcitx5-mozc ];
+  };
 
     packages = with pkgs; [
       dejavu_fonts
