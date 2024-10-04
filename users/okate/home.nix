@@ -32,8 +32,17 @@
     EDITOR = "nvim";
   };
   
-  home.file.".config/nvim" = {
-    source = ./nvim;
+  home.file.".config/nvim/init.lua" = {
+    text = builtins.readFile ./nvim/init.lua;
+  };
+  home.file.".config/nvim/neovim.yml" = {
+    text = builtins.readFile ./nvim/neovim.yml;
+  };
+  home.file.".config/nvim/selene.toml" = {
+    text = builtins.readFile ./nvim/selene.toml;
+  };
+  home.file.".config/nvim/lua" = {
+    source = ./nvim/lua;
   };
 
   home.file.".tool-versions" = {
