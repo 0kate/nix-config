@@ -20,10 +20,10 @@
     wpa_supplicant
   ];
 
-	networking.wireless = {
-	  enable = true;
-	  userControlled.enable = true;
-	};
+  networking.wireless = {
+    enable = true;
+    userControlled.enable = true;
+  };
 
   services.xserver = {
     enable = true;
