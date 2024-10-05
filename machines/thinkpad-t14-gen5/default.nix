@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    <nixos-hardware/lenovo/thinkpad/t14/amd/gen5>
+    <nixos-hardware/lenovo/thinkpad/t14>
     ../shared.nix
     ./hardware-configuration.nix
   ];
