@@ -7,6 +7,8 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  hardware.enableRedistributableFirmware = true;
+
   boot = {
     loader = {
       systemd-boot.enable = true;
