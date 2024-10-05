@@ -34,6 +34,7 @@ bootstrap0:
 		sed --in-place '/system\.stateVersion = .*/a \
 			nix.extraOptions = \"experimental-features = nix-command flakes\";\n \
 			networking.wireless.enable = true;\n \
+			networking.wireless.userControlled.enable = true;\n \
 			users.users.root.initialPassword = \"root\";\n \
 		' /mnt/etc/nixos/configuration.nix; \
 		nixos-install --no-root-passwd && reboot;
