@@ -23,6 +23,7 @@
     vim
     zellij
   ] ++ (lib.optionals (!isWSL) [
+    bitwarden-desktop
     firefox
     google-chrome
     slack
