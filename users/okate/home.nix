@@ -24,8 +24,10 @@
     zellij
   ] ++ (lib.optionals (!isWSL) [
     bitwarden-desktop
+    dracula-icon-theme
     firefox
     google-chrome
+    numix-gtk-theme
     slack
     wezterm
   ]);
