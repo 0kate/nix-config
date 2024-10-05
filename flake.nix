@@ -34,6 +34,11 @@
       user   = "okate";
     };
 
+    nixosConfigurations.private-vm = mkSystem "private-vm" {
+      system = "x86_64-linux";
+      user   = "okate";
+    };
+
     nixosConfigurations.wsl = mkSystem "wsl" {
       system = "x86_64-linux";
       user   = "okate";
