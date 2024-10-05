@@ -14,26 +14,39 @@
     };
   };
 
+  networking = {
+    hostName = "ThinkPad T14 Gen5";
+    wireless = {
+      enable = true;
+      userControlled.enable = true;
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     gnumake
     wpa_supplicant
   ];
 
-  networking.wireless = {
-    enable = true;
-    userControlled.enable = true;
-  };
-
   services.xserver = {
     enable = true;
-    videoDrivers = [ "intel" ];
+
+    displayManager.lightdm.enable = true;
+    desktopManager.lxqt.enable = true;
+
     xkb = {
       layout = "us";
       options = "ctrl:nocaps";
     };
-    desktopManager.lxqt.enable = true;
   };
-  services.displayManager.sddm.enable = true;
+
+  hardware.pulseaudio.enable = true;
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+  };
 
   i18n.inputMethod = {
     enabled = "fcitx5";
