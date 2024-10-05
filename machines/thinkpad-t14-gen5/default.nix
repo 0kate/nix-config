@@ -1,10 +1,11 @@
 { pkgs, ... }:
 {
   imports = [
-    <nixos-hardware/lenovo/thinkpad/t14>
     ../shared.nix
     ./hardware-configuration.nix
   ];
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   boot = {
     loader = {
