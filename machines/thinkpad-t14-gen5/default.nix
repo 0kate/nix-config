@@ -15,17 +15,15 @@
   };
 
   networking = {
-    hostName = "ThinkPad T14 Gen5";
-    wireless = {
-      enable = true;
-      userControlled.enable = true;
-    };
+    hostName = "ThinkPad-T14-Gen5";
+    networkmanager.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
     gnumake
-    wpa_supplicant
   ];
+
+  programs.nm-applet.enable = true;
 
   services.xserver = {
     enable = true;
@@ -39,13 +37,16 @@
     };
   };
 
-  hardware.pulseaudio.enable = true;
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
+  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
-    alsa.support32Bit = true;
     pulse.enable = true;
+    jack.enable = true;
   };
 
   i18n.inputMethod = {
