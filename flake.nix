@@ -39,6 +39,11 @@
       user   = "okate";
     };
 
+    nixosConfigurations.thinkpad-t14-gen5 = mkSystem "thinkpad-t14-gen5" {
+      system = "x86_64-linux";
+      user   = "okate";
+    };
+
     nixosConfigurations.wsl = mkSystem "wsl" {
       system = "x86_64-linux";
       user   = "okate";
