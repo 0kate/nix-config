@@ -12,6 +12,10 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+    kernelParams = [
+      "i915.force_probe=7d45"
+      "i915.enable_guc=2"
+    ];
   };
 
   networking = {
@@ -47,6 +51,15 @@
     alsa.enable = true;
     pulse.enable = true;
     jack.enable = true;
+  };
+
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      vaapiIntel
+      libvdpau-va-gl
+      intel-media-driver
+    ];
   };
 
   i18n.inputMethod = {
