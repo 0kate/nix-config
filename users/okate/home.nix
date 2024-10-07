@@ -4,6 +4,7 @@
   home.stateVersion = "22.11";
 
   home.packages = with pkgs; [
+    awscli2
     clang
     cmake
     curl
@@ -11,10 +12,16 @@
     eza
     gettext
     git
+    gnupg
+    google-cloud-sdk
     lazydocker
     lazygit
     mise
     ninja
+    pass
+    pinentry-tty
+    python312
+    python312Packages.pip
     ripgrep
     rustup
     sheldon
@@ -24,12 +31,11 @@
     zellij
   ] ++ (lib.optionals (!isWSL) [
     bitwarden-desktop
-    dracula-icon-theme
     firefox
     google-chrome
-    numix-gtk-theme
     slack
     wezterm
+    xclip
   ]);
 
   home.sessionVariables = {
