@@ -6,16 +6,6 @@ test-vm.rebuild:
 wsl.rebuild:
 	$(REBUILD_CMD) '.#wsl'
 
-mise.install:
-	nix-shell --extra-experimental-features flakes \
-		-p gcc \
-		-p zlib \
-		-p libffi \
-		-p openssl \
-		-p libyaml \
-		-p python3 \
-		--run "mise install"
-
 vm.bootstrap0:
 	parted /dev/sda -- mklabel gpt; \
 		parted /dev/sda -- mkpart primary 512MB -8GB; \
