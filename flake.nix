@@ -14,18 +14,11 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
   };
 
   outputs = { nixpkgs, home-manager, nixos-wsl, ... }@inputs:
   let
-    overlays = [
-      inputs.neovim-nightly-overlay.overlays.default
-    ];
+    overlays = [];
 
     mkSystem = import ./lib/mkSystem.nix {
       inherit nixpkgs overlays inputs;
