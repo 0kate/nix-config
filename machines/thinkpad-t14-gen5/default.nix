@@ -25,6 +25,7 @@
 
   environment.systemPackages = with pkgs; [
     gnumake
+    plasma-browser-integration
   ];
 
   services.xserver = {
