@@ -41,6 +41,8 @@
   services.displayManager.sddm.wayland.enable = false;
   services.desktopManager.plasma6.enable = true;
 
+  programs.partition-manager.enable = true;
+
   hardware.bluetooth.enable = true;
 
   hardware.pulseaudio.enable = false;
