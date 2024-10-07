@@ -27,22 +27,20 @@
     gnumake
   ];
 
-  programs.nm-applet.enable = true;
-
   services.xserver = {
     enable = true;
-
-    displayManager.lightdm.enable = true;
-    desktopManager.lxqt.enable = true;
 
     xkb = {
       layout = "us";
       options = "ctrl:nocaps";
     };
   };
+  services.displayManager.defaultSession = "plasmax11";
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = false;
+  services.desktopManager.plasma6.enable = true;
 
   hardware.bluetooth.enable = true;
-  services.blueman.enable = true;
 
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
