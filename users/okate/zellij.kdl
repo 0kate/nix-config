@@ -283,13 +283,11 @@ theme "catppuccin-latte"
 
 // The name of the default layout to load on startup
 // Default: "default"
-//
-// default_layout "compact"
+default_layout "compact"
 
 // Choose the mode that zellij uses when starting up.
 // Default: normal
-//
-// default_mode "locked"
+default_mode "locked"
 
 // Toggle enabling the mouse mode.
 // On certain configurations, or terminals this could
@@ -297,8 +295,7 @@ theme "catppuccin-latte"
 // Options:
 //   - true (default)
 //   - false
-//
-// mouse_mode false
+mouse_mode false
 
 // Configure the scroll back buffer size
 // This is the number of lines zellij stores for each pane in the scroll back
