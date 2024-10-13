@@ -33,6 +33,9 @@ export PATH=$PATH:$HOME/.cargo/bin
 # JAVA_HOME
 # . ~/.asdf/plugins/java/set-java-home.zsh
 
+# mise
+eval "$(/etc/profiles/per-user/okate/bin/mise activate zsh)"
+
 # direnv
 eval "$(direnv hook zsh)"
 
