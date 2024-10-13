@@ -5,14 +5,19 @@
     ./hardware-configuration.nix
   ];
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   boot = {
     loader = {
-      grub = {
-        enable = true;
-        device = "/dev/sda";
-      };
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    gnumake
+    plasma-browser-integration
+  ];
 
   services.xserver = {
     enable = true;
@@ -20,9 +25,11 @@
       layout = "us";
       options = "ctrl:nocaps";
     };
-    desktopManager.lxqt.enable = true;
   };
+  services.displayManager.defaultSession = "plasmax11";
   services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = false;
+  services.desktopManager.plasma6.enable = true;
 
   i18n.inputMethod = {
     enabled = "fcitx5";
