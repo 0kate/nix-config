@@ -16,11 +16,10 @@
     google-cloud-sdk
     lazydocker
     lazygit
+    mise
     ninja
     pass
-    pinentry-tty
-    python312
-    python312Packages.pip
+    pinentry-qt
     ripgrep
     rustup
     sheldon
@@ -29,12 +28,16 @@
     vim
     zellij
   ] ++ (lib.optionals (!isWSL) [
+    android-studio
     bitwarden-desktop
+    dbeaver-bin
     firefox
     google-chrome
+    kazam
     slack
     wezterm
     xclip
+    zoom-us
   ]);
 
   home.sessionVariables = {
