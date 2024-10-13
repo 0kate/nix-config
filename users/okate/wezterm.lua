@@ -28,6 +28,7 @@ config.harfbuzz_features = { 'zero' }
 config.hide_tab_bar_if_only_one_tab = true
 config.line_height = 1.2
 config.use_ime = true
+config.use_resize_increments = true
 config.xim_im_name = 'fcitx'
 config.window_decorations = 'TITLE | RESIZE'
 config.window_padding = {
