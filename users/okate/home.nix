@@ -16,7 +16,6 @@
     google-cloud-sdk
     lazydocker
     lazygit
-    mise
     ninja
     pass
     pinentry-qt
@@ -72,6 +71,14 @@
     enable = true;
     userName = "keito-osaki";
     userEmail = "o.keito317@gmail.com";
+    ignores = [
+      ".devenv*"
+      "devenv.local.nix"
+      # direnv
+      ".direnv"
+      # pre-commit
+      ".pre-commit-config.yaml"
+    ];
   };
 
   programs.neovim = {
