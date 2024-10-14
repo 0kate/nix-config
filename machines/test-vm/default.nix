@@ -15,6 +15,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    devenv
     gnumake
     plasma-browser-integration
   ];

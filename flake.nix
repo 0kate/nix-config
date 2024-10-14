@@ -13,6 +13,8 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
 
+    devenv.url = "github:cachix/devenv";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,6 +23,8 @@
 
   outputs = { nixpkgs, home-manager, nixos-wsl, ... }@inputs:
   let
+    system = "x86_64-linux";
+
     overlays = [];
 
     mkSystem = import ./lib/mkSystem.nix {
@@ -28,22 +32,22 @@
     };
   in {
     nixosConfigurations.test-vm = mkSystem "test-vm" {
-      system = "x86_64-linux";
+      system = "${system}";
       user   = "okate";
     };
 
     nixosConfigurations.private-vm = mkSystem "private-vm" {
-      system = "x86_64-linux";
+      system = "${system}";
       user   = "okate";
     };
 
     nixosConfigurations.thinkpad-t14-gen5 = mkSystem "thinkpad-t14-gen5" {
-      system = "x86_64-linux";
+      system = "${system}";
       user   = "okate";
     };
 
     nixosConfigurations.wsl = mkSystem "wsl" {
-      system = "x86_64-linux";
+      system = "${system}";
       user   = "okate";
       wsl    = true;
     };
