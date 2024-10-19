@@ -26,6 +26,7 @@
   environment.systemPackages = with pkgs; [
     gnumake
     plasma-browser-integration
+    touchegg
   ];
 
   services.xserver = {
@@ -40,6 +41,8 @@
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = false;
   services.desktopManager.plasma6.enable = true;
+
+  services.touchegg.enable = true;
 
   programs.partition-manager.enable = true;
 
