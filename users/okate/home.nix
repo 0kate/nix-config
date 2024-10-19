@@ -49,6 +49,7 @@
     "nvim/init.lua".text = builtins.readFile ./nvim/init.lua;
     "nvim/neovim.yml".text = builtins.readFile ./nvim/neovim.yml;
     "nvim/selene.toml".text = builtins.readFile ./nvim/selene.toml;
+    "touchegg/touchegg.conf".text = builtins.readFile ./touchegg.conf;
   };
   
   home.file.".config/nvim/lua" = {
