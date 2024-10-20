@@ -14,14 +14,17 @@
     git
     gnupg
     google-cloud-sdk
+    jq
     lazydocker
     lazygit
     ninja
     pass
+    peco
     pinentry-qt
     ripgrep
     rustup
     sheldon
+    ssm-session-manager-plugin
     tree-sitter
     unzip
     vim

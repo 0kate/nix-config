@@ -24,8 +24,13 @@
   };
 
   environment.systemPackages = with pkgs; [
+    cassandra
+    devenv
     gnumake
+    ktailctl
+    mysql84
     plasma-browser-integration
+    tailscale
     touchegg
   ];
 
@@ -56,6 +61,8 @@
     pulse.enable = true;
     jack.enable = true;
   };
+
+  services.tailscale.enable = true;
 
   hardware.opengl = {
     enable = true;
