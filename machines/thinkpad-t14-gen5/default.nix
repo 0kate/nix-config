@@ -84,6 +84,7 @@
       fira-code
       fira-code-symbols
       jetbrains-mono
+      nerdfonts
       noto-fonts
       noto-fonts-cjk
       noto-fonts-extra

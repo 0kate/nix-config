@@ -23,6 +23,8 @@ config.font = wezterm.font_with_fallback({
   -- { family = 'Monaspace Neon Var', weight = 'Medium', assume_emoji_presentation = true, harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }, },
   { family = 'JetBrains Mono', weight = 'Light', harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' } },
   { family = 'JetBrains Mono', weight = 'Light', assume_emoji_presentation = true, harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' } },
+  { family = 'Symbols Nerd Font Mono', weight = 'Light' },
+  { family = 'Symbols Nerd Font Mono', weight = 'Light', assume_emoji_presentation = true, harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' } },
 })
 config.harfbuzz_features = { 'zero' }
 config.hide_tab_bar_if_only_one_tab = true
