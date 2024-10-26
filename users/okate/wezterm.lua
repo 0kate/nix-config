@@ -17,14 +17,13 @@ config.debug_key_events = true
 config.default_cursor_style = 'BlinkingBlock'
 config.enable_scroll_bar = false
 config.font = wezterm.font_with_fallback({
-  -- { family = 'Hack Nerd Font' },
-  -- { family = 'Hack Nerd Font', assume_emoji_presentation = true },
-  -- { family = 'Monaspace Neon Var', weight = 'Medium' },
-  -- { family = 'Monaspace Neon Var', weight = 'Medium', assume_emoji_presentation = true, harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }, },
-  { family = 'JetBrains Mono', weight = 'Light', harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' } },
-  { family = 'JetBrains Mono', weight = 'Light', assume_emoji_presentation = true, harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' } },
-  { family = 'Symbols Nerd Font Mono', weight = 'Light' },
-  { family = 'Symbols Nerd Font Mono', weight = 'Light', assume_emoji_presentation = true, harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' } },
+  {
+    family = 'JetBrains Mono',
+    weight = 'Light',
+    harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
+  },
+  { family = 'Symbols Nerd Font Mono', weight = 'Regular' },
+  { family = 'Noto Sans CJK JP', weight = 'Regular' },
 })
 config.harfbuzz_features = { 'zero' }
 config.hide_tab_bar_if_only_one_tab = true
