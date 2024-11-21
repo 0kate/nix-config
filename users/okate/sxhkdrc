@@ -1,0 +1,8 @@
+ctrl + 0
+    tdrop -ma -r -y 0 -w 100% wezterm
+
+alt + n
+    increment-focused-window-height
+
+alt + p
+    decrement-focused-window-height
