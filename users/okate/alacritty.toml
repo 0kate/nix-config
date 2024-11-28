@@ -1,0 +1,35 @@
+[window]
+decorations = "full"
+padding = { x = 0, y = 0 }
+
+[font]
+normal = { family = "JetBrains Mono", style = "Light" }
+bold = { family = "JetBrains Mono", style = "Bold" }
+italic = { family = "JetBrains Mono", style = "Italic" }
+size = 12.0
+fallback = [
+  { family = "Symbols Nerd Font Mono", style = "Regular" },
+  { family = "Noto Sans CJK JP", style = "Regular" }
+]
+line_height = 1.2
+
+[cursor]
+style = "BlinkingBlock"
+blink_interval = 500
+
+[colors]
+primary = { background = "#FAFAFA", foreground = "#383A42" }
+cursor = { text = "#FFFFFF", cursor = "#666666" }
+selection = { text = "#383A42", background = "#CCCCCC" }
+normal = { black = "#000000", red = "#E06C75", green = "#98C379", yellow = "#E5C07B", blue = "#61AFEF", magenta = "#C678DD", cyan = "#56B6C2", white = "#ABB2BF" }
+bright = { black = "#5C6370", red = "#E06C75", green = "#98C379", yellow = "#E5C07B", blue = "#61AFEF", magenta = "#C678DD", cyan = "#56B6C2", white = "#FFFFFF" }
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[ime]
+enabled = true
+
+[debug]
+key_bindings = true
