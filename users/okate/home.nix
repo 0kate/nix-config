@@ -18,6 +18,7 @@
     lazydocker
     lazygit
     ninja
+    nodejs_22
     pass
     peco
     pinentry-qt
@@ -25,25 +26,34 @@
     rustup
     sheldon
     ssm-session-manager-plugin
+    tmux
     tree-sitter
     unzip
     vim
     zellij
   ] ++ (lib.optionals (!isWSL) [
+    alacritty
     android-studio
     bitwarden-desktop
     dbeaver-bin
     firefox
     google-chrome
-    kazam
     slack
+    tdrop
     wezterm
     xclip
+    xdotool
+    xorg.xprop
+    xorg.xrandr
+    xorg.xwininfo
     zoom-us
+
+    inputs.ghostty.packages.${pkgs.system}.default
   ]);
 
   home.sessionVariables = {
     EDITOR = "nvim";
+    LIBGL_ALWAYS_SOFTWARE = "1";
   };
 
   xdg.configFile = {
@@ -52,12 +62,32 @@
     "nvim/init.lua".text = builtins.readFile ./nvim/init.lua;
     "nvim/neovim.yml".text = builtins.readFile ./nvim/neovim.yml;
     "nvim/selene.toml".text = builtins.readFile ./nvim/selene.toml;
-    "touchegg/touchegg.conf".text = builtins.readFile ./touchegg.conf;
+    "sxhkd/sxhkdrc".text = builtins.readFile ./sxhkdrc;
+    "alacritty/alacritty.toml".text = builtins.readFile ./alacritty.toml;
+    "ghostty/config".text = builtins.readFile ./ghostty;
   };
   
   home.file.".config/nvim/lua" = {
     source = ./nvim/lua;
   };
+
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/shell" = {
+        enabled-extensions = [
+          "Bluetooth-Battery-Meter@maniacx.github.com"
+          "dash-to-dock@micxgx.gmail.com"
+          "kimpanel@kde.org"
+          "paperwm@paperwm.github.com"
+          "system-monitor@gnome-shell-extensions.gcampax.github.com"
+          "tailscale-status@maxgallup.github.com"
+        ];
+      };
+    };
+  };
+
+  services.sxhkd.enable = true;
 
   programs.zsh = {
     enable = true;
@@ -76,12 +106,18 @@
     userName = "keito-osaki";
     userEmail = "o.keito317@gmail.com";
     ignores = [
-      ".devenv*"
+      "devbox.json"
+      "devbox.lock"
+      "devenv.lock"
       "devenv.local.nix"
-      # direnv
+      "devenv.nix"
+      "devenv.yaml"
+      "shell.nix"
+      ".envrc"
+      ".devenv*"
       ".direnv"
-      # pre-commit
       ".pre-commit-config.yaml"
+      ".venv"
     ];
   };
 
