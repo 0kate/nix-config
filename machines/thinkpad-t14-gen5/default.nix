@@ -20,18 +20,46 @@
 
   networking = {
     hostName = "ThinkPad-T14-Gen5";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      # Disable internal DNS resolution
+      dns = "none";
+    };
+    nameservers = [
+      "1.1.1.1"
+      "1.0.0.1"
+      "8.8.8.8"
+      "8.8.4.4"
+    ];
   };
 
   environment.systemPackages = with pkgs; [
     cassandra
+    devbox
     devenv
+    dig
     gnumake
-    ktailctl
+    gradle
+    lsof
+    maven
     mysql84
-    plasma-browser-integration
     tailscale
+    traceroute
     touchegg
+
+    ## Packages for GNOME desktop
+    gnome.gnome-keyring
+    gnome.gnome-tweaks
+    gnomeExtensions.bluetooth-battery-meter
+    gnomeExtensions.dash-to-dock
+    gnomeExtensions.paperwm
+    gnomeExtensions.tailscale-status
+    gnomeExtensions.kimpanel
+
+    ## Packages for Plasma desktop
+    # kdePackages.yakuake
+    # ktailctl
+    # plasma-browser-integration
   ];
 
   services.xserver = {
@@ -41,15 +69,17 @@
       layout = "us";
       options = "ctrl:nocaps";
     };
+
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
   };
-  services.displayManager.defaultSession = "plasmax11";
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = false;
-  services.desktopManager.plasma6.enable = true;
+  # services.displayManager.defaultSession = "plasmax11";
+  # services.displayManager.sddm.enable = true;
+  # services.displayManager.sddm.wayland.enable = false;
+  # services.desktopManager.plasma6.enable = true;
+  # programs.partition-manager.enable = true;
 
-  services.touchegg.enable = true;
-
-  programs.partition-manager.enable = true;
+  # services.touchegg.enable = true;
 
   hardware.bluetooth.enable = true;
 
@@ -84,11 +114,13 @@
       fira-code
       fira-code-symbols
       jetbrains-mono
+      hackgen-nf-font
       nerdfonts
       noto-fonts
       noto-fonts-cjk
       noto-fonts-extra
       noto-fonts-emoji
+      udev-gothic-nf
     ];
     fontDir.enable = true;
     fontconfig = {
@@ -99,6 +131,11 @@
       };
       subpixel = { lcdfilter = "light"; };
     };
+  };
+
+  programs.java = {
+    enable = true;
+    package = pkgs.corretto21;
   };
 
   system.stateVersion = "24.05";
