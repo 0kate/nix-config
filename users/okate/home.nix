@@ -26,7 +26,6 @@
     rustup
     sheldon
     ssm-session-manager-plugin
-    tmux
     tree-sitter
     unzip
     vim
@@ -129,17 +128,13 @@
     enable = true;
     settings = builtins.fromJSON (builtins.readFile ./lazygit.json);
   };
+  
+  programs.zellij = {
+    enable = true;
+  };
 
   programs.wezterm = {
     enable = true;
     extraConfig = builtins.readFile ./wezterm.lua;
-  };
-
-  programs.tmux = {
-    enable = true;
-    extraConfig = builtins.readFile ./tmux.conf;
-    plugins = [
-      pkgs.tmuxPlugins.catppuccin
-    ];
   };
 }
