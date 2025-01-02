@@ -134,4 +134,12 @@
     enable = true;
     extraConfig = builtins.readFile ./wezterm.lua;
   };
+
+  programs.tmux = {
+    enable = true;
+    extraConfig = builtins.readFile ./tmux.conf;
+    plugins = [
+      pkgs.tmuxPlugins.catppuccin
+    ];
+  };
 }
