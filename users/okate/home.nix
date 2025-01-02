@@ -70,7 +70,7 @@
   };
 
   dconf = {
-    enable = true;
+    enable = !isWSL;
     settings = {
       "org/gnome/shell" = {
         enabled-extensions = [
