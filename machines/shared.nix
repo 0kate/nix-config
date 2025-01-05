@@ -5,6 +5,8 @@
     openssh
   ];
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   time.timeZone = "Asia/Tokyo";
 
   virtualisation.docker.enable = true;
