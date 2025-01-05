@@ -14,6 +14,7 @@
     git
     gnupg
     google-cloud-sdk
+    helix
     jq
     lazydocker
     lazygit
@@ -27,8 +28,10 @@
     sheldon
     ssm-session-manager-plugin
     tree-sitter
+    typescript-language-server
     unzip
     vim
+    vue-language-server
     zellij
   ] ++ (lib.optionals (!isWSL) [
     alacritty
