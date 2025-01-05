@@ -1,0 +1,9 @@
+theme = "zed_onelight"
+
+[editor]
+bufferline = "always"
+cursorline = true
+true-color = true
+
+[editor.indent-guides]
+render = true

@@ -1,0 +1,9 @@
+[[language]]
+name = "vue"
+language-servers = ["typescript-language-server"]
+
+[[language-server.typescript-language-server.config.plugins]]
+name = "@vue/typescript-plugin"
+location = "/etc/profiles/per-user/okate/bin/typescript-language-server"
+languages = ["vue"]
+

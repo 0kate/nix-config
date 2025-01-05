@@ -63,6 +63,8 @@
     "nvim/selene.toml".text = builtins.readFile ./nvim/selene.toml;
     "alacritty/alacritty.toml".text = builtins.readFile ./alacritty.toml;
     "ghostty/config".text = builtins.readFile ./ghostty;
+    "helix/config.toml".text = builtins.readFile ./helix/config.toml;
+    "helix/languages.toml".text = builtins.readFile ./helix/languages.toml;
   };
   
   home.file.".config/nvim/lua" = {
