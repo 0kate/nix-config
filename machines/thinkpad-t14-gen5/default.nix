@@ -117,7 +117,7 @@
       hackgen-nf-font
       nerdfonts
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       noto-fonts-extra
       noto-fonts-emoji
       udev-gothic-nf
