@@ -67,6 +67,7 @@
     "ghostty/config".text = builtins.readFile ./ghostty;
     "helix/config.toml".text = builtins.readFile ./helix/config.toml;
     "helix/languages.toml".text = builtins.readFile ./helix/languages.toml;
+    "starship.toml".text = builtins.readFile ./starship.toml;
   };
   
   home.file.".config/nvim/lua" = {
