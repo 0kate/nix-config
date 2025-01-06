@@ -18,7 +18,9 @@
     jq
     lazydocker
     lazygit
+    nil
     ninja
+    nixpkgs-fmt
     nodejs_22
     pass
     peco
@@ -27,6 +29,7 @@
     rustup
     sheldon
     ssm-session-manager-plugin
+    taplo
     tree-sitter
     typescript-language-server
     unzip
