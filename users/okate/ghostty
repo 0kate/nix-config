@@ -1,37 +1,39 @@
-background = "#fafafa"
-foreground = "#383142"
+# background = "#fafafa"
+background = "#0D1017"
+# foreground = "#383142"
+foreground = "#BFBDB6"
 
 font-family = "Hack Nerd Font"
 font-family-bold = "Hack Nerd Font"
 font-family-bold = "Hack Nerd Font"
 
-cursor-color = "#666666"
-cursor-text = "#ffffff"
-cursor-style = "block"
+# light config
+# cursor-color = "#666666"
+# cursor-text = "#ffffff"
+# cursor-style = "block"
 
 selection-background = "#cccccc"
 selection-foreground = "#383a42"
 
-palette = "0=#000000"
-palette = "1=#E06C75"
-palette = "2=#98C379"
-palette = "3=#E5C07B"
-palette = "4=#61AFEF"
-palette = "5=#C678DD"
-palette = "6=#56B6C2"
-palette = "7=#ABB2BF"
-palette = "8=#5C6370"
-palette = "9=#E06C75"
-palette = "10=#98C379"
-palette = "11=#E5C07B"
-palette = "12=#61AFEF"
-palette = "13=#C678DD"
-palette = "14=#56B6C2"
-palette = "15=#FFFFFF"
+# palette = "0=#000000"
+# palette = "1=#E06C75"
+# palette = "2=#98C379"
+# palette = "3=#E5C07B"
+# palette = "4=#61AFEF"
+# palette = "5=#C678DD"
+# palette = "6=#56B6C2"
+# palette = "7=#ABB2BF"
+# palette = "8=#5C6370"
+# palette = "9=#E06C75"
+# palette = "10=#98C379"
+# palette = "11=#E5C07B"
+# palette = "12=#61AFEF"
+# palette = "13=#C678DD"
+# palette = "14=#56B6C2"
+# palette = "15=#FFFFFF"
 
 copy-on-select = true
 
 window-padding-x = 0,0
 window-padding-y = 0,0
 window-padding-balance = true
-window-theme = "ghostty"
