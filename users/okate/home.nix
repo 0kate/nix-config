@@ -94,6 +94,9 @@
   programs.zsh = {
     enable = true;
     initExtra = builtins.readFile ./zshrc;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
 
     shellAliases = {
       lgd = "lazydocker";
@@ -101,6 +104,37 @@
       ls  = "eza --icons";
       zj  = "zellij";
     };
+
+    plugins = [
+      {
+        name = "powerlevel10k";
+        src  = pkgs.fetchFromGitHub {
+          owner  = "romkatv";
+          repo   = "powerlevel10k";
+          rev    = "v1.20.0";
+          sha256 = "ES5vJXHjAKw/VHjWs8Au/3R+/aotSbY7PWnWAMzCR8E=";
+        };
+      }
+      {
+        name = "zsh-autocomplete";
+        src  = pkgs.fetchFromGitHub {
+          owner  = "marlonrichert";
+          repo   = "zsh-autocomplete";
+          rev    = "24.09.04";
+          sha256 = "o8IQszQ4/PLX1FlUvJpowR2Tev59N8lI20VymZ+Hp4w=";
+        };
+      }
+    ];
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
   };
 
   programs.git = {
