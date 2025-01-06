@@ -1,9 +1,27 @@
-[[language]]
-name = "vue"
-language-servers = ["typescript-language-server"]
+[language-server.jdtls]
+command = "jdtls"
 
-[[language-server.typescript-language-server.config.plugins]]
+[language-server.ruby-lsp]
+command = "ruby-lsp"
+
+[language-server.typescript-language-server.config.plugins]
 name = "@vue/typescript-plugin"
 location = "/etc/profiles/per-user/okate/bin/typescript-language-server"
 languages = ["vue"]
 
+[[language]]
+name = "vue"
+language-servers = ["typescript-language-server"]
+
+[[language]]
+name = "java"
+roots = ["build.gradle"]
+language-servers = ["jdtls"]
+
+[[language]]
+name = "nix"
+formatter = { command = "nixpkgs-fmt" }
+
+# [[language]]
+# name = "ruby"
+# language-servers = ["ruby-lsp"]
