@@ -6,10 +6,10 @@ $os\
 $username\
 [](bg:color_bg1 fg:color_bg3)\
 $directory\
-[](fg:color_bg1 bg:color_darkgray)\
+[](fg:color_bg1 bg:color_lightgray)\
 $git_branch\
 $git_status\
-[ ](fg:color_darkgray)\
+[ ](fg:color_lightgray)\
 $fill\
 $nix_shell\
 $c\
@@ -42,7 +42,9 @@ color_purple = '#7e57c2'
 color_red = '#ef5350'
 color_yellow = '#ffee58'
 color_darkgray = '#333333'
+color_lightgray = '#3c3c3c'
 color_brown = '#9c7711'
+color_clearblue = '#94cbff'
 
 [os]
 disabled = false
@@ -114,16 +116,16 @@ truncation_symbol = "…/"
 
 [git_branch]
 symbol = " "
-style = "bg:color_darkgray"
-format = '[[ $symbol$branch ](fg:color_fg0 bg:color_darkgray)]($style)'
+style = "bg:color_lightgray"
+format = '[[ $symbol$branch ](fg:color_fg0 bg:color_lightgray)]($style)'
 
 [git_status]
-style = "bg:color_darkgray"
-format = '[[($all_status$ahead_behind )](fg:color_fg0 bg:color_darkgray)]($style)'
+style = "bg:color_lightgray"
+format = '[[($all_status$ahead_behind)](fg:color_fg0 bg:color_lightgray)]($style)'
 
 [nix_shell]
 symbol = " "
-style = "fg:color_aqua"
+style = "fg:color_clearblue"
 format = '[ $symbol$state \($name\) ]($style)'
 
 [fill]
