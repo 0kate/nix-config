@@ -48,6 +48,7 @@
     touchegg
 
     ## Packages for GNOME desktop
+    dconf-editor
     gnome.gnome-keyring
     gnome.gnome-tweaks
     gnomeExtensions.bluetooth-battery-meter
