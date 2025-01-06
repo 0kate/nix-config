@@ -59,7 +59,6 @@
   };
 
   xdg.configFile = {
-    "sheldon/plugins.toml".text = builtins.readFile ./sheldon.toml;
     "zellij/config.kdl".text = builtins.readFile ./zellij.kdl;
     "nvim/init.lua".text = builtins.readFile ./nvim/init.lua;
     "nvim/neovim.yml".text = builtins.readFile ./nvim/neovim.yml;
