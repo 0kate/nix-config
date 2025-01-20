@@ -3,6 +3,7 @@ keybinds {
     }
     locked {
         bind "Ctrl g" { SwitchToMode "Normal"; }
+        bind "Ctrl t" { SwitchToMode "Tab"; }
     }
     resize {
         bind "r" { SwitchToMode "Normal"; }
