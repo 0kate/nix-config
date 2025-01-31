@@ -5,6 +5,7 @@
 
   home.packages = with pkgs; [
     awscli2
+    bundler
     clang
     cmake
     curl
@@ -15,6 +16,7 @@
     gnupg
     google-cloud-sdk
     helix
+    jdt-language-server
     jq
     lazydocker
     lazygit
@@ -22,6 +24,7 @@
     ninja
     nixpkgs-fmt
     nodejs_22
+    nodePackages_latest.vscode-json-languageserver
     pass
     peco
     pinentry-qt
@@ -40,9 +43,12 @@
     alacritty
     android-studio
     bitwarden-desktop
+    brave
     dbeaver-bin
+    drawio
     firefox
     google-chrome
+    proton-pass
     slack
     tdrop
     wezterm
@@ -57,8 +63,7 @@
   ]);
 
   home.sessionVariables = {
-    EDITOR = "nvim";
-    LIBGL_ALWAYS_SOFTWARE = "1";
+    EDITOR = "hx";
   };
 
   xdg.configFile = {
