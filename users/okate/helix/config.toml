@@ -3,10 +3,16 @@ theme = "molokai"
 [editor]
 bufferline = "always"
 cursorline = true
+scrolloff = 10
 true-color = true
+undercurl = true
 
 [editor.cursor-shape]
-insert = "block"
+insert = "bar"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
 
 [editor.indent-guides]
 render = true
@@ -14,6 +20,10 @@ render = true
 [keys.normal]
 "tab" = "goto_next_buffer"
 "S-tab" = "goto_previous_buffer"
+"C-x" = ":buffer-close"
 
 [keys.insert]
+"C-[" = "normal_mode"
+
+[keys.select]
 "C-[" = "normal_mode"

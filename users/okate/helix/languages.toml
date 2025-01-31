@@ -4,6 +4,10 @@ command = "jdtls"
 [language-server.ruby-lsp]
 command = "ruby-lsp"
 
+[language-server.vscode-json-languageserver]
+command = "vscode-json-languageserver"
+args = ["--stdio"]
+
 [language-server.typescript-language-server.config.plugins]
 name = "@vue/typescript-plugin"
 location = "/etc/profiles/per-user/okate/bin/typescript-language-server"
@@ -21,6 +25,10 @@ language-servers = ["jdtls"]
 [[language]]
 name = "nix"
 formatter = { command = "nixpkgs-fmt" }
+
+[[language]]
+name = "json"
+language-servers = ["vscode-json-languageserver"]
 
 # [[language]]
 # name = "ruby"
