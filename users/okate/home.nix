@@ -9,7 +9,10 @@
     clang
     cmake
     curl
+    devbox
     direnv
+    docker-compose-language-service
+    dockerfile-language-server-nodejs
     eza
     gettext
     git
@@ -34,10 +37,9 @@
     ssm-session-manager-plugin
     taplo
     tree-sitter
-    typescript-language-server
     unzip
     vim
-    vue-language-server
+    yaml-language-server
     zellij
   ] ++ (lib.optionals (!isWSL) [
     alacritty
