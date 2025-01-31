@@ -8,8 +8,6 @@ let
   userHomeConfig = ../users/${user}/home.nix;
   userOSConfig   = ../users/${user}/nixos.nix;
 
-  nix-ld = inputs.nix-ld;
-
   home-manager = inputs.home-manager;
 
   hardware = inputs.nixos-hardware;
@@ -17,7 +15,6 @@ in nixpkgs.lib.nixosSystem {
   inherit system;
 
   modules = [
-    nix-ld.nixosModules.nix-ld
     hardware.nixosModules.lenovo-thinkpad-t14
     { nixpkgs.overlays = overlays; }
     { nixpkgs.config.allowUnfree = true; }
