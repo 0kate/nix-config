@@ -6,6 +6,7 @@
   home.packages = with pkgs; [
     awscli2
     bundler
+    clamav
     clang
     cmake
     curl
@@ -49,6 +50,7 @@
     dbeaver-bin
     drawio
     firefox
+    gnome-boxes
     google-chrome
     proton-pass
     slack
