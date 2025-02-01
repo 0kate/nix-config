@@ -9,6 +9,9 @@ wsl.rebuild:
 thinkpad-t14-gen5.rebuild:
 	$(REBUILD_CMD) '.#thinkpad-t14-gen5'
 
+thinkpad-z13.rebuild:
+	$(REBUILD_CMD) '.#thinkpad-z13'
+
 vm.bootstrap0:
 	parted /dev/sda -- mklabel gpt; \
 		parted /dev/sda -- mkpart primary 512MB -8GB; \

@@ -45,6 +45,11 @@
       user   = "okate";
     };
 
+    nixosConfigurations.thinkpad-z13 = mkSystem "thinkpad-z13" {
+      system = "${system}";
+      user   = "okate";
+    };
+
     nixosConfigurations.wsl = mkSystem "wsl" {
       system = "${system}";
       user   = "okate";
