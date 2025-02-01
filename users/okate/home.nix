@@ -72,9 +72,6 @@
 
   xdg.configFile = {
     "zellij/config.kdl".text = builtins.readFile ./zellij.kdl;
-    "nvim/init.lua".text = builtins.readFile ./nvim/init.lua;
-    "nvim/neovim.yml".text = builtins.readFile ./nvim/neovim.yml;
-    "nvim/selene.toml".text = builtins.readFile ./nvim/selene.toml;
     "alacritty/alacritty.toml".text = builtins.readFile ./alacritty.toml;
     "ghostty/config".text = builtins.readFile ./ghostty;
     "helix/config.toml".text = builtins.readFile ./helix/config.toml;
@@ -82,10 +79,6 @@
     "starship.toml".text = builtins.readFile ./starship.toml;
   };
   
-  home.file.".config/nvim/lua" = {
-    source = ./nvim/lua;
-  };
-
   dconf = {
     enable = !isWSL;
     settings = {
@@ -168,10 +161,6 @@
       ".pre-commit-config.yaml"
       ".venv"
     ];
-  };
-
-  programs.neovim = {
-    enable = true;
   };
 
   programs.lazygit = {
