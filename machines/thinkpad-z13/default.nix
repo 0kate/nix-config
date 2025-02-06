@@ -52,6 +52,7 @@
     gnome.gnome-keyring
     gnome.gnome-tweaks
     gnomeExtensions.bluetooth-battery-meter
+    gnomeExtensions.clipboard-indicator
     gnomeExtensions.dash-to-dock
     gnomeExtensions.paperwm
     gnomeExtensions.tailscale-status

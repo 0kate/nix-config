@@ -85,6 +85,7 @@
       "org/gnome/shell" = {
         enabled-extensions = [
           "Bluetooth-Battery-Meter@maniacx.github.com"
+          "clipboard-indicator@tudmotu.com"
           "dash-to-dock@micxgx.gmail.com"
           "kimpanel@kde.org"
           "paperwm@paperwm.github.com"
