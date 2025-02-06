@@ -20,6 +20,7 @@
     gnupg
     google-cloud-sdk
     helix
+    helix-gpt
     jdt-language-server
     jq
     lazydocker
