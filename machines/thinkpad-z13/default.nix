@@ -35,6 +35,8 @@
 
   environment.systemPackages = with pkgs; [
     cassandra
+    clamav
+    clamtk
     devbox
     devenv
     dig
@@ -83,6 +85,11 @@
 
   # services.touchegg.enable = true;
 
+  services.clamav = {
+    daemon.enable = true;
+    scanner.enable = true;
+    updater.enable = true;
+  };
   hardware.bluetooth.enable = true;
 
   hardware.pulseaudio.enable = false;
