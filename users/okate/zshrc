@@ -24,7 +24,6 @@ WORDCHARS=${WORDCHARS//[-]}
 WORDCHARS=${WORDCHARS//[_]}
 
 # local executable
-export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.local/confluent/confluent-7.6.0/bin
 
 # direnv

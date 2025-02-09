@@ -66,6 +66,8 @@
     # plasma-browser-integration
   ];
 
+  environment.localBinInPath = true;
+
   services.xserver = {
     enable = true;
 
