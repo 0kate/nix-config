@@ -25,6 +25,7 @@
     jq
     lazydocker
     lazygit
+    navi
     nil
     ninja
     nixpkgs-fmt
@@ -56,6 +57,7 @@
     proton-pass
     slack
     tdrop
+    ulauncher
     wezterm
     xclip
     xdotool
@@ -65,6 +67,7 @@
     zoom-us
 
     inputs.ghostty.packages.${pkgs.system}.default
+    inputs.thorium.packages.${pkgs.system}.default
   ]);
 
   home.sessionVariables = {
@@ -141,6 +144,11 @@
   };
 
   programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.navi = {
     enable = true;
     enableZshIntegration = true;
   };
