@@ -6,6 +6,7 @@ cursorline = true
 scrolloff = 10
 true-color = true
 undercurl = true
+end-of-line-diagnostics = "hint"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -16,6 +17,9 @@ hidden = false
 
 [editor.indent-guides]
 render = true
+
+[editor.inline-diagnostics]
+cursor-line = "error"
 
 [keys.normal]
 "tab" = "goto_next_buffer"
