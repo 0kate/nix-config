@@ -2,8 +2,7 @@
   description = "A very basic flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
 
@@ -18,6 +17,7 @@
     };
 
     ghostty.url = "github:ghostty-org/ghostty";
+    thorium.url = "github:0kate/nix-thorium";
   };
 
   outputs = { nixpkgs, home-manager, nixos-wsl, ... }@inputs:
