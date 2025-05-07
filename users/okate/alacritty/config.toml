@@ -1,6 +1,6 @@
 [general]
-imports = [
-  "!/.config/alacritty/themes/sonokai.toml"
+import = [
+  "~/.config/alacritty/themes/sonokai.toml"
 ]
 
 [window]
