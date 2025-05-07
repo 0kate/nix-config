@@ -23,6 +23,7 @@
     helix-gpt
     jdt-language-server
     jq
+    just
     lazydocker
     lazygit
     navi
