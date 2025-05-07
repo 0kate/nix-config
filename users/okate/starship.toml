@@ -130,7 +130,7 @@ format = '[ $symbol$state \($name\) ]($style)'
 
 [fill]
 symbol = "·"
-style = "bold color_darkgray"
+style = "bold color_lightgray"
 
 [time]
 disabled = false
