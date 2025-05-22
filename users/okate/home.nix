@@ -63,10 +63,6 @@
     zoom-us
   ]);
 
-  home.sessionVariables = {
-    EDITOR = "hx";
-  };
-
   xdg.configFile = {
     "zellij/config.kdl".text = builtins.readFile ./zellij.kdl;
     "alacritty/alacritty.toml".text = builtins.readFile ./alacritty/config.toml;
