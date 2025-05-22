@@ -67,8 +67,6 @@
     "zellij/config.kdl".text = builtins.readFile ./zellij.kdl;
     "alacritty/alacritty.toml".text = builtins.readFile ./alacritty/config.toml;
     "alacritty/themes/sonokai.toml".text = builtins.readFile ./alacritty/themes/sonokai.toml;
-    "helix/config.toml".text = builtins.readFile ./helix/config.toml;
-    "helix/languages.toml".text = builtins.readFile ./helix/languages.toml;
     "starship.toml".text = builtins.readFile ./starship.toml;
   };
   
@@ -123,6 +121,168 @@
         };
       }
     ];
+  };
+
+  programs.helix = {
+    enable = true;
+    defaultEditor = true;
+
+    settings = {
+      theme = "sonokai";
+
+      editor = {
+        bufferline = "always";
+        cursorline = true;
+        scrolloff = 10;
+        true-color = true;
+        undercurl = true;
+        end-of-line-diagnostics = "hint";
+        completion-replace = true;
+
+        statusline = {
+          left = [
+            "spacer"
+            "mode"
+            "spacer"
+            "read-only-indicator"
+            "file-name"
+            "spacer"
+            "version-control"
+          ];
+          center = [];
+          right = [
+            "spinner"
+            "diagnostics"
+            "selections"
+            "register"
+            "spacer"
+            "position"
+            "position-percentage"
+            "spacer"
+            "file-type"
+            "file-encoding"
+            "file-line-ending"
+          ];
+        };
+
+        cursor-shape = {
+          insert = "bar";
+          select = "underline";
+        };
+
+        file-picker = {
+          hidden = false;
+          git-ignore = false;
+          git-global = false;
+        };
+
+        whitespace = {
+          render = {
+            space = "all";
+            tab = "all";
+          };
+          characters = {
+            space = "·";
+            tab = "→";
+          };
+        };
+
+        indent-guides = {
+          render = true;
+          character = "╎";
+        };
+
+        inline-diagnostics = {
+          cursor-line = "error";
+        };
+      };
+
+      keys = {
+        normal = {
+          "tab" = "goto_next_buffer";
+          "S-tab" = "goto_previous_buffer";
+          "C-x" = ":buffer-close";
+        };
+        insert = {
+          "C-[" = "normal_mode";
+        };
+        select = {
+          "C-[" = "normal_mode";
+        };
+      };
+    };
+
+    languages = {
+      language-server = {
+        jdtls = {
+          command = "jdtls";
+        };
+        gpt = {
+          command = "helix-gpt";
+        };
+        vscode-json-languageserver = {
+          command = "vscode-json-languageserver";
+          args = [ "--stdio" ];
+        };
+        typescript-language-server = {
+          config.plugins = {
+            name = "@vue/typescript-plugin";
+            location = "/nix/store/3ihrs9w5yvfl6g7ib3mmw9i70mplcmmz-vue-language-server-2.1.6/lib/node_modules/@vue/language-server";
+            languages = [ "vue" ];
+          };
+        };
+      };
+
+      language = [
+        {
+          name = "vue";
+          auto-format = true;
+          formatter = { command = "prettier"; args = [ "--parser" "vue" ]; };
+          language-servers = [ "typescript-language-server" "gpt" ];
+        }
+        {
+          name = "typescript";
+          formatter = { command = "prettier"; };
+          language-servers = [ "typescript-language-server" "gpt" ];
+        }
+        {
+          name = "java";
+          roots = [ "build.gadle" ];
+          language-servers = [ "jdtls" "gpt" ];
+        }
+        {
+          name = "nix";
+          formatter = { command = "nixpkgs-fmt"; };
+          language-servers = [ "nil" "gpt" ];
+        }
+        {
+          name = "json";
+          language-servers = [ "vscode-json-languageserver" "gpt" ];
+        }
+        {
+          name = "python";
+          language-servers = [ "pylsp" "gpt" ];
+        }
+        {
+          name = "ruby";
+          language-servers = [ "solargraph" "gpt" ];
+        }
+        {
+          name = "hcl";
+          language-id = "terraform";
+          language-servers = [ "terraform-ls" "gpt" ];
+        }
+        {
+          name = "tfvars";
+          language-id = "terraform-vars";
+          language-servers = [ "terraform-ls" "gpt" ];
+        }
+        {
+          name = "go";
+          language-servers = [ "gopls" "gpt" ];
+        }
+      ];
+    };
   };
 
   programs.direnv = {
