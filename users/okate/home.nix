@@ -65,7 +65,6 @@
 
   xdg.configFile = {
     "zellij/config.kdl".text = builtins.readFile ./zellij.kdl;
-    "alacritty/alacritty.toml".text = builtins.readFile ./alacritty/config.toml;
     "alacritty/themes/sonokai.toml".text = builtins.readFile ./alacritty/themes/sonokai.toml;
   };
   
@@ -287,6 +286,34 @@
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
+  };
+
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      general = {
+        import = [ "~/.config/alacritty/themes/sonokai.toml" ];
+      };
+
+      window = {
+        decorations = "full";
+      };
+
+      font = {
+        normal = {
+          family = "Hack Nerd Font";
+          style = "Light";
+        };
+        bold = {
+          family = "Hack Nerd Font";
+          style = "Bold";
+        };
+        italic = {
+          family = "Hack Nerd Font";
+          style = "Italic";
+        };
+      };
+    };
   };
 
   programs.starship = {
