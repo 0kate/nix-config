@@ -87,7 +87,7 @@
 
   programs.zsh = {
     enable = true;
-    initExtra = builtins.readFile ./zshrc;
+    initExtra = builtins.readFile ./zshrc-extra;
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
