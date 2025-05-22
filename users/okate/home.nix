@@ -290,6 +290,7 @@
 
   programs.alacritty = {
     enable = true;
+
     settings = {
       general = {
         import = [ "~/.config/alacritty/themes/sonokai.toml" ];
@@ -580,7 +581,14 @@
 
   programs.lazygit = {
     enable = true;
-    settings = builtins.fromJSON (builtins.readFile ./lazygit.json);
+    settings = {
+      keybinding = {
+        universal = {
+          scrollUpMain = "<c-k>";
+          scrollDownMain = "<c-j>";
+        };
+      };
+    };
   };
   
   programs.zellij = {
