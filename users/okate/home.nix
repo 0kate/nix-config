@@ -10,7 +10,6 @@
     clang
     cmake
     curl
-    devbox
     direnv
     docker-compose-language-service
     dockerfile-language-server-nodejs
@@ -21,16 +20,15 @@
     google-cloud-sdk
     helix
     helix-gpt
-    jdt-language-server
     jq
     just
     lazydocker
     lazygit
     navi
+    nb
     nil
     ninja
     nixpkgs-fmt
-    nodejs_22
     nodePackages_latest.vscode-json-languageserver
     pass
     peco
@@ -55,20 +53,14 @@
     firefox
     gnome-boxes
     google-chrome
-    proton-pass
     slack
-    tdrop
-    ulauncher
-    wezterm
     xclip
+    xdg-desktop-portal-gnome
     xdotool
     xorg.xprop
     xorg.xrandr
     xorg.xwininfo
     zoom-us
-
-    inputs.ghostty.packages.${pkgs.system}.default
-    inputs.thorium.packages.${pkgs.system}.default
   ]);
 
   home.sessionVariables = {
@@ -77,8 +69,8 @@
 
   xdg.configFile = {
     "zellij/config.kdl".text = builtins.readFile ./zellij.kdl;
-    "alacritty/alacritty.toml".text = builtins.readFile ./alacritty.toml;
-    "ghostty/config".text = builtins.readFile ./ghostty;
+    "alacritty/alacritty.toml".text = builtins.readFile ./alacritty/config.toml;
+    "alacritty/themes/sonokai.toml".text = builtins.readFile ./alacritty/themes/sonokai.toml;
     "helix/config.toml".text = builtins.readFile ./helix/config.toml;
     "helix/languages.toml".text = builtins.readFile ./helix/languages.toml;
     "starship.toml".text = builtins.readFile ./starship.toml;
@@ -100,8 +92,6 @@
       };
     };
   };
-
-  services.sxhkd.enable = true;
 
   programs.zsh = {
     enable = true;
@@ -181,10 +171,5 @@
   
   programs.zellij = {
     enable = true;
-  };
-
-  programs.wezterm = {
-    enable = true;
-    extraConfig = builtins.readFile ./wezterm.lua;
   };
 }
