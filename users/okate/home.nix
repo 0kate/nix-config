@@ -1,5 +1,19 @@
 { inputs, isWSL, ... }:
 { config, pkgs, lib, ... }:
+let
+  # helix
+  helixSettings = import ./helix/settings.nix;
+  helixLanguages = import ./helix/languages.nix;
+
+  # alacritty
+  alacrittySettings = import ./alacritty/settings.nix;
+
+  # starship
+  starshipSettings = import ./starship/settings.nix;
+
+  # lazygit
+  lazygitSettings = import ./lazygit/settings.nix;
+in
 {
   home.stateVersion = "22.11";
 
@@ -64,7 +78,7 @@
   ]);
 
   xdg.configFile = {
-    "zellij/config.kdl".text = builtins.readFile ./zellij.kdl;
+    "zellij/config.kdl".text = builtins.readFile ./zellij/settings.kdl;
     "alacritty/themes/sonokai.toml".text = builtins.readFile ./alacritty/themes/sonokai.toml;
   };
   
@@ -87,7 +101,7 @@
 
   programs.zsh = {
     enable = true;
-    initExtra = builtins.readFile ./zshrc-extra;
+    initExtra = builtins.readFile ./zsh/extrarc;
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
@@ -124,163 +138,8 @@
   programs.helix = {
     enable = true;
     defaultEditor = true;
-
-    settings = {
-      theme = "sonokai";
-
-      editor = {
-        bufferline = "always";
-        cursorline = true;
-        scrolloff = 10;
-        true-color = true;
-        undercurl = true;
-        end-of-line-diagnostics = "hint";
-        completion-replace = true;
-
-        statusline = {
-          left = [
-            "spacer"
-            "mode"
-            "spacer"
-            "read-only-indicator"
-            "file-name"
-            "spacer"
-            "version-control"
-          ];
-          center = [];
-          right = [
-            "spinner"
-            "diagnostics"
-            "selections"
-            "register"
-            "spacer"
-            "position"
-            "position-percentage"
-            "spacer"
-            "file-type"
-            "file-encoding"
-            "file-line-ending"
-          ];
-        };
-
-        cursor-shape = {
-          insert = "bar";
-          select = "underline";
-        };
-
-        file-picker = {
-          hidden = false;
-          git-ignore = false;
-          git-global = false;
-        };
-
-        whitespace = {
-          render = {
-            space = "all";
-            tab = "all";
-          };
-          characters = {
-            space = "·";
-            tab = "→";
-          };
-        };
-
-        indent-guides = {
-          render = true;
-          character = "╎";
-        };
-
-        inline-diagnostics = {
-          cursor-line = "error";
-        };
-      };
-
-      keys = {
-        normal = {
-          "tab" = "goto_next_buffer";
-          "S-tab" = "goto_previous_buffer";
-          "C-x" = ":buffer-close";
-        };
-        insert = {
-          "C-[" = "normal_mode";
-        };
-        select = {
-          "C-[" = "normal_mode";
-        };
-      };
-    };
-
-    languages = {
-      language-server = {
-        jdtls = {
-          command = "jdtls";
-        };
-        gpt = {
-          command = "helix-gpt";
-        };
-        vscode-json-languageserver = {
-          command = "vscode-json-languageserver";
-          args = [ "--stdio" ];
-        };
-        typescript-language-server = {
-          config.plugins = {
-            name = "@vue/typescript-plugin";
-            location = "/nix/store/3ihrs9w5yvfl6g7ib3mmw9i70mplcmmz-vue-language-server-2.1.6/lib/node_modules/@vue/language-server";
-            languages = [ "vue" ];
-          };
-        };
-      };
-
-      language = [
-        {
-          name = "vue";
-          auto-format = true;
-          formatter = { command = "prettier"; args = [ "--parser" "vue" ]; };
-          language-servers = [ "typescript-language-server" "gpt" ];
-        }
-        {
-          name = "typescript";
-          formatter = { command = "prettier"; };
-          language-servers = [ "typescript-language-server" "gpt" ];
-        }
-        {
-          name = "java";
-          roots = [ "build.gadle" ];
-          language-servers = [ "jdtls" "gpt" ];
-        }
-        {
-          name = "nix";
-          formatter = { command = "nixpkgs-fmt"; };
-          language-servers = [ "nil" "gpt" ];
-        }
-        {
-          name = "json";
-          language-servers = [ "vscode-json-languageserver" "gpt" ];
-        }
-        {
-          name = "python";
-          language-servers = [ "pylsp" "gpt" ];
-        }
-        {
-          name = "ruby";
-          language-servers = [ "solargraph" "gpt" ];
-        }
-        {
-          name = "hcl";
-          language-id = "terraform";
-          language-servers = [ "terraform-ls" "gpt" ];
-        }
-        {
-          name = "tfvars";
-          language-id = "terraform-vars";
-          language-servers = [ "terraform-ls" "gpt" ];
-        }
-        {
-          name = "go";
-          language-servers = [ "gopls" "gpt" ];
-        }
-      ];
-    };
+    settings = helixSettings;
+    languages = helixLanguages;
   };
 
   programs.direnv = {
@@ -290,268 +149,13 @@
 
   programs.alacritty = {
     enable = true;
-
-    settings = {
-      general = {
-        import = [ "~/.config/alacritty/themes/sonokai.toml" ];
-      };
-
-      window = {
-        decorations = "full";
-      };
-
-      font = {
-        normal = {
-          family = "Hack Nerd Font";
-          style = "Light";
-        };
-        bold = {
-          family = "Hack Nerd Font";
-          style = "Bold";
-        };
-        italic = {
-          family = "Hack Nerd Font";
-          style = "Italic";
-        };
-      };
-    };
+    settings = alacrittySettings;
   };
 
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
-
-    settings = {
-      format = builtins.concatStringsSep "" [
-        "[](color_bg3)"
-        "$os"
-        "$username"
-        "[](bg:color_bg1 fg:color_bg3)"
-        "$directory"
-        "[](fg:color_bg1 bg:color_lightgray)"
-        "$git_branch"
-        "$git_status"
-        "[ ](fg:color_lightgray)"
-        "$fill"
-        "$nix_shell"
-        "$c"
-        "$golang"
-        "$gradle"
-        "$java"
-        "$lua"
-        "$meson"
-        "$nodejs"
-        "$python"
-        "$ruby"
-        "$rust"
-        "$terraform"
-        "$zig"
-        "$time"
-        "$line_break$character"
-      ];
-
-      palette = "cool_tones";
-
-      palettes.cool_tones = {
-        color_fg0 = "#e0f7fa";
-        color_bg1 = "#1e3a5f";
-        color_bg2 = "#2f4b70";
-        color_bg3 = "#324b6e";
-        color_blue = "#4a90e2";
-        color_aqua = "#53a4e5";
-        color_green = "#4caf50";
-        color_orange = "#ffa726";
-        color_purple = "#7e57c2";
-        color_red = "#ef5350";
-        color_yellow = "#ffee58";
-        color_darkgray = "#333333";
-        color_lightgray = "#3c3c3c";
-        color_brown = "#9c7711";
-        color_clearblue = "#94cbff";
-      };
-
-      os = {
-        disabled = false;
-        style = "bg:color_bg3 fg:color_fg0";
-        symbols = {
-          Alpaquita = " ";
-          Alpine = " ";
-          AlmaLinux = " ";
-          Amazon = " ";
-          Android = " ";
-          Arch = " ";
-          Artix = " ";
-          CentOS = " ";
-          Debian = " ";
-          DragonFly = " ";
-          Emscripten = " ";
-          EndeavourOS = " ";
-          Fedora = " ";
-          FreeBSD = " ";
-          Garuda = "󰛓 ";
-          Gentoo = " ";
-          HardenedBSD = "󰞌 ";
-          Illumos = "󰈸 ";
-          Kali = " ";
-          Linux = " ";
-          Mabox = " ";
-          Macos = " ";
-          Manjaro = " ";
-          Mariner = " ";
-          MidnightBSD = " ";
-          Mint = " ";
-          NetBSD = " ";
-          NixOS = " ";
-          OpenBSD = "󰈺 ";
-          openSUSE = " ";
-          OracleLinux = "󰌷 ";
-          Pop = " ";
-          Raspbian = " ";
-          Redhat = " ";
-          RedHatEnterprise = " ";
-          RockyLinux = " ";
-          Redox = "󰀘 ";
-          Solus = "󰠳 ";
-          SUSE = " ";
-          Ubuntu = " ";
-          Unknown = " ";
-          Void = " ";
-          Windows = "󰍲 ";
-        };
-      };
-
-      username = {
-        show_always = true;
-        style_user = "bg:color_bg3 fg:color_fg0";
-        style_root = "bg:color_bg3 fg:color_fg0";
-        format = "[ $user ]($style)";
-      };
-
-      directory = {
-        style = "fg:color_fg0 bg:color_bg1";
-        format = "[ $path ]( $style )";
-        truncation_length = 3;
-        truncation_symbol = "…/";
-
-        substitutions = {
-          "Documents" = "󰈙 ";
-          "Downloads" = " ";
-          "Music" = "󰝚 ";
-          "Pictures" = " ";
-          "Developer" = "󰲋 ";
-        };
-      };
-
-      git_branch = {
-        symbol = " ";
-        style = "bg:color_lightgray";
-        format = "[[ $symbol$branch ](fg:color_fg0 bg:color_lightgray)]($style)";
-      };
-
-      git_status = {
-        style = "bg:color_lightgray";
-        format = "[[($all_status$ahead_behind)](fg:color_fg0 bg:color_lightgray)]($style)";
-      };
-
-      nix_shell = {
-        symbol = " ";
-        style = "fg:color_clearblue";
-        format = "[ $symbol$state \($name\) ]($style)";
-      };
-
-      fill = {
-        symbol = "·";
-        style = "bold color_lightgray";
-      };
-
-      time = {
-        disabled = false;
-        style = "fg:color_fg0";
-        format = "[ 󰅐 $time ]($style)";
-      };
-
-      line_break = {
-        disabled = false;
-      };
-
-      character = {
-        disabled = false;
-        success_symbol = "[❯](bold fg:color_green)";
-        error_symbol = "[❯](bold fg:color_red)";
-      };
-
-      c = {
-        symbol = " ";
-        style = "fg:color_blue";
-        format = "[ $symbol($version) ]($style)";
-      };
-
-      golang = {
-        symbol = " ";
-        style = "fg:color_aqua";
-        format = "[ $symbol($version) ]($style)";
-      };
-
-      gradle = {
-        symbol = " ";
-        style = "fg:color_bg3";
-        format = "[ $symbol($version) ]($style)";
-      };
-
-      java = {
-        symbol = " ";
-        style = "fg:color_brown";
-        format = "[ $symbol($version) ]($style)";
-      };
-
-      lua = {
-        symbol = " ";
-        style = "fg:color_bg3";
-        format = "[ $symbol($version) ]($style)";
-      };
-
-      meson = {
-        symbol = "󰔷 ";
-        style = "fg:color_purple";
-        format = "[ $symbol($version) ]($style)";
-      };
-
-      nodejs = {
-        symbol = " ";
-        style = "fg:color_green";
-        format = "[ $symbol($version) ]($style)";
-      };
-
-      python = {
-        symbol = " ";
-        style = "fg:color_blue";
-        format = "[ $symbol($version) ]($style)";
-      };
-
-      ruby = {
-        symbol = " ";
-        style = "fg:color_red";
-        format = "[ $symbol($version) ]($style)";
-      };
-
-      rust = {
-        symbol = "󱘗 ";
-        style = "fg:color_orange";
-        format = "[ $symbol($version) ]($style)";
-      };
-
-      terraform = {
-        symbol = "󱁢 ";
-        style = "fg:color_purple";
-        format = "[ $symbol($version) ]($style)";
-      };
-
-      zig = {
-        symbol = " ";
-        style = "fg:color_yellow";
-        format = "[ $symbol($version) ]($style)";
-      };
-    };
+    settings = starshipSettings;
   };
 
   programs.navi = {
@@ -581,14 +185,7 @@
 
   programs.lazygit = {
     enable = true;
-    settings = {
-      keybinding = {
-        universal = {
-          scrollUpMain = "<c-k>";
-          scrollDownMain = "<c-j>";
-        };
-      };
-    };
+    settings = lazygitSettings;
   };
   
   programs.zellij = {
