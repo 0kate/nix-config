@@ -4,6 +4,7 @@
   editor = {
     bufferline = "always";
     cursorline = true;
+    cursorcolumn = true;
     scrolloff = 10;
     true-color = true;
     undercurl = true;
