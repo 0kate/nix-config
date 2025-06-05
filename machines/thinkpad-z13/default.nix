@@ -51,8 +51,8 @@
 
     ## Packages for GNOME desktop
     dconf-editor
-    gnome.gnome-keyring
-    gnome.gnome-tweaks
+    gnome-keyring
+    gnome-tweaks
     gnomeExtensions.bluetooth-battery-meter
     gnomeExtensions.clipboard-indicator
     gnomeExtensions.dash-to-dock
@@ -126,13 +126,12 @@
       fira-code-symbols
       jetbrains-mono
       hackgen-nf-font
-      nerdfonts
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-extra
       noto-fonts-emoji
       udev-gothic-nf
-    ];
+    ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts.hack);
     fontDir.enable = true;
     fontconfig = {
       enable = true;
