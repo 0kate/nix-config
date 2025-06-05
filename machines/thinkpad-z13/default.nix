@@ -94,8 +94,10 @@
   };
   hardware.bluetooth.enable = true;
 
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
+
+  services.pulseaudio.enable = false;
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -105,7 +107,7 @@
 
   services.tailscale.enable = true;
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       vaapiIntel
@@ -115,7 +117,8 @@
   };
 
   i18n.inputMethod = {
-    enabled = "fcitx5";
+    enable = true;
+    type = "fcitx5";
     fcitx5.addons = [ pkgs.fcitx5-mozc ];
   };
 
