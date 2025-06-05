@@ -100,7 +100,7 @@ in
 
   programs.zsh = {
     enable = true;
-    initExtra = builtins.readFile ./zsh/extrarc;
+    initContent = builtins.readFile ./zsh/extrarc;
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
@@ -114,15 +114,6 @@ in
     };
 
     plugins = [
-      {
-        name = "powerlevel10k";
-        src  = pkgs.fetchFromGitHub {
-          owner  = "romkatv";
-          repo   = "powerlevel10k";
-          rev    = "v1.20.0";
-          sha256 = "ES5vJXHjAKw/VHjWs8Au/3R+/aotSbY7PWnWAMzCR8E=";
-        };
-      }
       {
         name = "zsh-autocomplete";
         src  = pkgs.fetchFromGitHub {
