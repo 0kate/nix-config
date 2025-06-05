@@ -5,7 +5,9 @@
     ./hardware-configuration.nix
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix = {
+    settings.experimental-features = [ "nix-command" "flakes" ];
+  };
 
   boot = {
     loader = {
@@ -16,6 +18,21 @@
       "i915.force_probe=7d45"
       "i915.enable_guc=2"
     ];
+  };
+
+  hardware = {
+    bluetooth = {
+      enable = true;
+    };
+
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        vaapiIntel
+        libvdpau-va-gl
+        intel-media-driver
+      ];
+    };
   };
 
   networking = {
@@ -33,87 +50,76 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    cassandra
-    clamav
-    clamtk
-    devbox
-    devenv
-    dig
-    gnumake
-    gradle
-    lsof
-    maven
-    mysql84
-    tailscale
-    traceroute
-    touchegg
+  security = {
+    rtkit.enable = true;
+  };
 
-    ## Packages for GNOME desktop
-    dconf-editor
-    gnome-keyring
-    gnome-tweaks
-    gnomeExtensions.bluetooth-battery-meter
-    gnomeExtensions.clipboard-indicator
-    gnomeExtensions.dash-to-dock
-    gnomeExtensions.paperwm
-    gnomeExtensions.tailscale-status
-    gnomeExtensions.kimpanel
+  environment = {
+    variables = {
+      GI_TYPELIB_PATH = "/run/current-system/sw/lib/girepository-1.0";
+    };
+    systemPackages = with pkgs; [
+      cassandra
+      clamav
+      clamtk
+      devbox
+      devenv
+      dig
+      gnumake
+      gradle
+      lsof
+      maven
+      mysql84
+      tailscale
+      traceroute
+      touchegg
 
-    ## Packages for Plasma desktop
-    # kdePackages.yakuake
-    # ktailctl
-    # plasma-browser-integration
-  ];
+      ## Packages for GNOME desktop
+      dconf-editor
+      gnome-keyring
+      gnome-tweaks
+      gnomeExtensions.bluetooth-battery-meter
+      gnomeExtensions.clipboard-indicator
+      gnomeExtensions.dash-to-dock
+      gnomeExtensions.paperwm
+      gnomeExtensions.tailscale-status
+      gnomeExtensions.kimpanel
+      libgtop
+    ];
+    localBinInPath = true;
+  };
 
-  environment.localBinInPath = true;
-
-  services.xserver = {
-    enable = true;
-
-    xkb = {
-      layout = "us";
-      options = "ctrl:nocaps";
+  services = {
+    xserver = {
+      enable = true;
+      xkb = {
+        layout = "us";
+        options = "ctrl:nocaps";
+      };
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
     };
 
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
-  };
-  # services.displayManager.defaultSession = "plasmax11";
-  # services.displayManager.sddm.enable = true;
-  # services.displayManager.sddm.wayland.enable = false;
-  # services.desktopManager.plasma6.enable = true;
-  # programs.partition-manager.enable = true;
+    clamav = {
+      daemon.enable = true;
+      scanner.enable = true;
+      updater.enable = true;
+    };
 
-  # services.touchegg.enable = true;
+    pulseaudio = {
+      enable = false;
+    };
 
-  services.clamav = {
-    daemon.enable = true;
-    scanner.enable = true;
-    updater.enable = true;
-  };
-  hardware.bluetooth.enable = true;
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      pulse.enable = true;
+      jack.enable = true;
+    };
 
-  security.rtkit.enable = true;
-
-  services.pulseaudio.enable = false;
-
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
-
-  services.tailscale.enable = true;
-
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      vaapiIntel
-      libvdpau-va-gl
-      intel-media-driver
-    ];
+    tailscale = {
+      enable = false;
+    };
   };
 
   i18n.inputMethod = {
@@ -144,11 +150,6 @@
       };
       subpixel = { lcdfilter = "light"; };
     };
-  };
-
-  programs.java = {
-    enable = true;
-    package = pkgs.corretto21;
   };
 
   system.stateVersion = "24.05";
