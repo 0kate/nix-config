@@ -38,6 +38,7 @@ in
     just
     lazydocker
     lazygit
+    lazysql
     navi
     nb
     nil
@@ -62,8 +63,6 @@ in
     android-studio
     bitwarden-desktop
     brave
-    dbeaver-bin
-    drawio
     firefox
     gnome-boxes
     google-chrome
@@ -109,6 +108,7 @@ in
     shellAliases = {
       lgd = "lazydocker";
       lgg = "lazygit";
+      lgs = "lazysql";
       ls  = "eza --icons";
       zj  = "zellij";
     };
