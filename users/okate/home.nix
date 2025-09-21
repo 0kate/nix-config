@@ -4,20 +4,22 @@ let
   useGUI = !isWSL;
 
   cliPkgs = with pkgs; [
-    awscli2
     bundler
     clamav
     clang
     cmake
     curl
+    codex
     direnv
     docker-compose-language-service
     dockerfile-language-server-nodejs
+    emacs
+    emacs-lsp-booster
     eza
     gettext
     git
     gnupg
-    google-cloud-sdk
+    fzf
     helix
     helix-gpt
     jq
@@ -25,6 +27,7 @@ let
     lazydocker
     lazygit
     lazysql
+    libtool
     navi
     nb
     nil
@@ -51,6 +54,7 @@ let
     android-studio
     bitwarden-desktop
     brave
+    discord
     firefox
     gnome-boxes
     google-chrome

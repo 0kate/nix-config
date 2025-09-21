@@ -25,6 +25,7 @@
     overlays = [
       (final: prev: rec {
         helix = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.helix;
+        codex = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.codex;
       })
     ];
 
