@@ -20,9 +20,8 @@ let
     git
     gnupg
     fzf
-    helix
-    helix-gpt
     jq
+    jujutsu
     just
     lazydocker
     lazygit
@@ -44,7 +43,6 @@ let
     taplo
     tree-sitter
     unzip
-    vim
     yaml-language-server
     zellij
   ];
@@ -65,12 +63,9 @@ let
     xorg.xprop
     xorg.xrandr
     xorg.xwininfo
+    zed-editor
     zoom-us
   ];
-
-  # helix
-  helixSettings = import ./helix/settings.nix;
-  helixLanguages = import ./helix/languages.nix;
 
   # alacritty
   alacrittySettings = import ./alacritty/settings.nix;
@@ -80,6 +75,10 @@ let
 
   # lazygit
   lazygitSettings = import ./lazygit/settings.nix;
+
+  # zed-editor
+  zedEditorSettings = import ./zed-editor/settings.nix;
+  zedEditorKeymaps = import ./zed-editor/keymaps.nix;
 in
 {
   home = {
@@ -127,13 +126,6 @@ in
       ];
     };
 
-    helix = {
-      enable = true;
-      defaultEditor = true;
-      settings = helixSettings;
-      languages = helixLanguages;
-    };
-
     direnv = {
       enable = true;
       enableZshIntegration = true;
@@ -179,9 +171,22 @@ in
       enable = true;
       settings = lazygitSettings;
     };
-  
-    zellij = {
+
+    vim = {
       enable = true;
+      defaultEditor = true;
+    };
+
+    zed-editor = {
+      enable = true;
+      extensions = [
+        "bearded-icon-theme"
+        "github-theme"
+        "html"
+        "nix"
+      ];
+      userSettings = zedEditorSettings;
+      userKeymaps = zedEditorKeymaps;
     };
   };
 

@@ -26,6 +26,8 @@
       (final: prev: rec {
         helix = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.helix;
         codex = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.codex;
+        jujutsu = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.jujutsu;
+        zed-editor = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.zed-editor;
       })
     ];
 
