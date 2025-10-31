@@ -10,6 +10,7 @@ let
     cmake
     curl
     codex
+    difftastic
     direnv
     docker-compose-language-service
     dockerfile-language-server-nodejs
@@ -42,9 +43,9 @@ let
     sheldon
     ssm-session-manager-plugin
     taplo
+    tree
     tree-sitter
     unzip
-    vim
     yaml-language-server
     zellij
   ];
@@ -57,7 +58,9 @@ let
     discord
     firefox
     gnome-boxes
+    gnome-pomodoro
     google-chrome
+    obsidian
     slack
     xclip
     xdg-desktop-portal-gnome
@@ -67,10 +70,6 @@ let
     xorg.xwininfo
     zoom-us
   ];
-
-  # helix
-  helixSettings = import ./helix/settings.nix;
-  helixLanguages = import ./helix/languages.nix;
 
   # alacritty
   alacrittySettings = import ./alacritty/settings.nix;
@@ -82,10 +81,16 @@ let
   lazygitSettings = import ./lazygit/settings.nix;
 in
 {
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+    };
+  };
+
   home = {
     stateVersion = "25.05";
     packages = cliPkgs ++ (lib.optionals (useGUI) guiPkgs);
-    shell.enableZshIntegration = true;
+    # shell.enableZshIntegration = true;
     sessionVariables = {
       HOGE = "hoge";
     };
@@ -101,7 +106,7 @@ in
   programs = {
     zsh = {
       enable = true;
-      initContent = builtins.readFile ./zsh/extrarc;
+      initExtra = builtins.readFile ./zsh/extrarc;
       enableCompletion = true;
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
@@ -125,13 +130,6 @@ in
           };
         }
       ];
-    };
-
-    helix = {
-      enable = true;
-      defaultEditor = true;
-      settings = helixSettings;
-      languages = helixLanguages;
     };
 
     direnv = {
@@ -179,9 +177,14 @@ in
       enable = true;
       settings = lazygitSettings;
     };
-  
+
     zellij = {
       enable = true;
+    };
+
+    vim = {
+      enable = true;
+      defaultEditor = true;
     };
   };
 
@@ -195,6 +198,7 @@ in
           "dash-to-dock@micxgx.gmail.com"
           "kimpanel@kde.org"
           "paperwm@paperwm.github.com"
+          "pomodoro@arun.codito.in"
           "system-monitor@gnome-shell-extensions.gcampax.github.com"
           "tailscale-status@maxgallup.github.com"
         ];
