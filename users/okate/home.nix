@@ -68,6 +68,7 @@ let
     xorg.xprop
     xorg.xrandr
     xorg.xwininfo
+    zed-editor
     zoom-us
   ];
 
@@ -79,6 +80,10 @@ let
 
   # lazygit
   lazygitSettings = import ./lazygit/settings.nix;
+
+  # zed-editor
+  zedSettings = import ./zed-editor/settings.nix;
+  zedKeymaps = import ./zed-editor/keymaps.nix;
 in
 {
   nixpkgs = {
@@ -173,6 +178,22 @@ in
       ];
     };
 
+    jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          name = "0kate";
+          email = "o.keito317@gmail.com";
+        };
+
+        ui = {
+          paginate = "never";
+          pager = ":builtin";
+          default-command = "log";
+        };
+      };
+    };
+
     lazygit = {
       enable = true;
       settings = lazygitSettings;
@@ -185,6 +206,12 @@ in
     vim = {
       enable = true;
       defaultEditor = true;
+    };
+
+    zed-editor = {
+      enable = true;
+      userKeymaps = zedKeymaps;
+      userSettings = zedSettings;
     };
   };
 
