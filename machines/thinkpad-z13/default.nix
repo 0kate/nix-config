@@ -14,10 +14,6 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-    kernelParams = [
-      "i915.force_probe=7d45"
-      "i915.enable_guc=2"
-    ];
   };
 
   hardware = {
@@ -28,7 +24,7 @@
     graphics = {
       enable = true;
       extraPackages = with pkgs; [
-        vaapiIntel
+        intel-vaapi-driver
         libvdpau-va-gl
         intel-media-driver
       ];
@@ -137,8 +133,7 @@
       hackgen-nf-font
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-extra
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       udev-gothic-nf
     ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts.hack);
     fontDir.enable = true;

@@ -1,5 +1,10 @@
 { inputs, isWSL, ... }:
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   useGUI = !isWSL;
 
@@ -10,31 +15,22 @@ let
     claude-code
     cmake
     curl
-    codex
     difftastic
     direnv
-    docker-compose-language-service
-    dockerfile-language-server-nodejs
-    emacs
-    emacs-lsp-booster
     eza
     gettext
     git
     gnupg
     fzf
-    helix
-    helix-gpt
     jq
     lazydocker
     lazygit
     lazysql
     libtool
     navi
-    nb
     nil
     ninja
     nixpkgs-fmt
-    nodePackages_latest.vscode-json-languageserver
     pass
     peco
     pinentry-qt
@@ -46,21 +42,18 @@ let
     tree
     tree-sitter
     unzip
-    yaml-language-server
-    zellij
+    xlsx2csv
+    yazi
   ];
 
   guiPkgs = with pkgs; [
-    alacritty
-    android-studio
     bitwarden-desktop
-    brave
     discord
-    firefox
     ghostty
     gnome-boxes
     gnome-pomodoro
     google-chrome
+    libreoffice
     obsidian
     slack
     xclip
@@ -69,22 +62,10 @@ let
     xorg.xprop
     xorg.xrandr
     xorg.xwininfo
-    zed-editor
-    zoom-us
   ];
-
-  # alacritty
-  alacrittySettings = import ./alacritty/settings.nix;
 
   # starship
   starshipSettings = import ./starship/settings.nix;
-
-  # lazygit
-  lazygitSettings = import ./lazygit/settings.nix;
-
-  # zed-editor
-  zedSettings = import ./zed-editor/settings.nix;
-  zedKeymaps = import ./zed-editor/keymaps.nix;
 
   # ghostty
   ghosttySettings = import ./ghostty/settings.nix;
@@ -97,9 +78,8 @@ in
   };
 
   home = {
-    stateVersion = "25.05";
+    stateVersion = "25.11";
     packages = cliPkgs ++ (lib.optionals (useGUI) guiPkgs);
-    # shell.enableZshIntegration = true;
     sessionVariables = {
       HOGE = "hoge";
     };
@@ -121,20 +101,22 @@ in
       syntaxHighlighting.enable = true;
 
       shellAliases = {
+        jjp = "jj --config=ui.paginate=auto";
         lgd = "lazydocker";
         lgg = "lazygit";
         lgs = "lazysql";
-        ls  = "eza --icons";
-        zj  = "zellij";
+        ls = "eza --icons";
+        yz = "yazi";
+        zj = "zellij";
       };
 
       plugins = [
         {
           name = "zsh-autocomplete";
-          src  = pkgs.fetchFromGitHub {
-            owner  = "marlonrichert";
-            repo   = "zsh-autocomplete";
-            rev    = "24.09.04";
+          src = pkgs.fetchFromGitHub {
+            owner = "marlonrichert";
+            repo = "zsh-autocomplete";
+            rev = "24.09.04";
             sha256 = "o8IQszQ4/PLX1FlUvJpowR2Tev59N8lI20VymZ+Hp4w=";
           };
         }
@@ -149,11 +131,6 @@ in
     ghostty = {
       enable = true;
       settings = ghosttySettings;
-    };
-
-    alacritty = {
-      enable = true;
-      settings = alacrittySettings;
     };
 
     starship = {
@@ -203,24 +180,12 @@ in
       };
     };
 
-    lazygit = {
-      enable = true;
-      settings = lazygitSettings;
-    };
-
-    zellij = {
-      enable = true;
-    };
-
     vim = {
       enable = true;
       defaultEditor = true;
-    };
-
-    zed-editor = {
-      enable = true;
-      userKeymaps = zedKeymaps;
-      userSettings = zedSettings;
+      settings = {
+        number = true;
+      };
     };
   };
 

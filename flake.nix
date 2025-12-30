@@ -1,8 +1,6 @@
 {
-  description = "A very basic flake";
-
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     nixos-hardware.url = "github:nixos/nixos-hardware/master";
@@ -13,51 +11,66 @@
     devenv.url = "github:cachix/devenv";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, home-manager, nixos-wsl, ... }@inputs:
-  let
-    system = "x86_64-linux";
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      nixos-wsl,
+      ...
+    }@inputs:
+    let
+      system = "x86_64-linux";
 
-    overlays = [
-      (final: prev: rec {
-        helix = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.helix;
-        codex = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.codex;
-        zed-editor = inputs.nixpkgs-unstable.legacyPackages.${prev.system}.zed-editor;
-      })
-    ];
+      pkgsUnstable = import inputs.nixpkgs-unstable {
+        inherit system;
+        config = {
+          allowUnfree = true;
+        };
+      };
 
-    mkSystem = import ./lib/mkSystem.nix {
-      inherit nixpkgs overlays inputs;
-    };
-  in {
-    nixosConfigurations.test-vm = mkSystem "test-vm" {
-      system = "${system}";
-      user   = "okate";
-    };
+      overlays = [
+        (final: prev: rec {
+          helix = pkgsUnstable.helix;
+          claude-code = pkgsUnstable.claude-code;
+          codex = pkgsUnstable.codex;
+          zed-editor = pkgsUnstable.zed-editor;
+        })
+      ];
 
-    nixosConfigurations.private-vm = mkSystem "private-vm" {
-      system = "${system}";
-      user   = "okate";
-    };
+      mkSystem = import ./lib/mkSystem.nix {
+        inherit nixpkgs overlays inputs;
+      };
+    in
+    {
+      nixosConfigurations.test-vm = mkSystem "test-vm" {
+        system = "${system}";
+        user = "okate";
+      };
 
-    nixosConfigurations.thinkpad-t14-gen5 = mkSystem "thinkpad-t14-gen5" {
-      system = "${system}";
-      user   = "okate";
-    };
+      nixosConfigurations.private-vm = mkSystem "private-vm" {
+        system = "${system}";
+        user = "okate";
+      };
 
-    nixosConfigurations.thinkpad-z13 = mkSystem "thinkpad-z13" {
-      system = "${system}";
-      user   = "okate";
-    };
+      nixosConfigurations.thinkpad-t14-gen5 = mkSystem "thinkpad-t14-gen5" {
+        system = "${system}";
+        user = "okate";
+      };
 
-    nixosConfigurations.wsl = mkSystem "wsl" {
-      system = "${system}";
-      user   = "okate";
-      wsl    = true;
+      nixosConfigurations.thinkpad-z13 = mkSystem "thinkpad-z13" {
+        system = "${system}";
+        user = "okate";
+      };
+
+      nixosConfigurations.wsl = mkSystem "wsl" {
+        system = "${system}";
+        user = "okate";
+        wsl = true;
+      };
     };
-  };
 }
