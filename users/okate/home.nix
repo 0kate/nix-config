@@ -7,6 +7,7 @@ let
     bundler
     clamav
     clang
+    claude-code
     cmake
     curl
     codex
@@ -57,6 +58,7 @@ let
     brave
     discord
     firefox
+    ghostty
     gnome-boxes
     gnome-pomodoro
     google-chrome
@@ -84,6 +86,9 @@ let
   # zed-editor
   zedSettings = import ./zed-editor/settings.nix;
   zedKeymaps = import ./zed-editor/keymaps.nix;
+
+  # ghostty
+  ghosttySettings = import ./ghostty/settings.nix;
 in
 {
   nixpkgs = {
@@ -140,6 +145,11 @@ in
     direnv = {
       enable = true;
       enableZshIntegration = true;
+    };
+
+    ghostty = {
+      enable = true;
+      settings = ghosttySettings;
     };
 
     alacritty = {
