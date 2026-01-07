@@ -25,7 +25,6 @@ let
     helix
     helix-gpt
     jq
-    just
     lazydocker
     lazygit
     lazysql
