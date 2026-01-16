@@ -69,6 +69,10 @@ let
 
   # ghostty
   ghosttySettings = import ./ghostty/settings.nix;
+
+  # helix
+  helixSettings = import ./helix/settings.nix;
+  helixLanguages = import ./helix/languages.nix;
 in
 {
   nixpkgs = {
@@ -80,16 +84,7 @@ in
   home = {
     stateVersion = "25.11";
     packages = cliPkgs ++ (lib.optionals (useGUI) guiPkgs);
-    sessionVariables = {
-      HOGE = "hoge";
-    };
-  };
-
-  xdg = {
-    configFile = {
-      "zellij/config.kdl".text = builtins.readFile ./zellij/settings.kdl;
-      "alacritty/themes/sonokai.toml".text = builtins.readFile ./alacritty/themes/sonokai.toml;
-    };
+    sessionVariables = {};
   };
 
   programs = {
@@ -180,9 +175,15 @@ in
       };
     };
 
-    vim = {
+    helix = {
       enable = true;
       defaultEditor = true;
+      settings = helixSettings;
+      languages = helixLanguages;
+    };
+
+    vim = {
+      enable = true;
       settings = {
         number = true;
       };
@@ -201,7 +202,6 @@ in
           "paperwm@paperwm.github.com"
           "pomodoro@arun.codito.in"
           "system-monitor@gnome-shell-extensions.gcampax.github.com"
-          "tailscale-status@maxgallup.github.com"
         ];
       };
     };
