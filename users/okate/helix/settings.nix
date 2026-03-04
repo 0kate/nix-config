@@ -43,7 +43,6 @@
     };
 
     file-picker = {
-      hidden = false;
       git-ignore = false;
       git-global = false;
     };

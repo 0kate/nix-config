@@ -1,18 +1,20 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs = {
+      url = "github:nixos/nixpkgs/nixos-25.11";
+    };
 
-    nixos-hardware.url = "github:nixos/nixos-hardware/master";
-
-    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-
-    devenv.url = "github:cachix/devenv";
+    nixpkgs-unstable = {
+      url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak/?ref=latest";
     };
   };
 
@@ -20,57 +22,30 @@
     {
       nixpkgs,
       home-manager,
-      nixos-wsl,
+      nix-flatpak,
       ...
     }@inputs:
     let
       system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
 
       pkgsUnstable = import inputs.nixpkgs-unstable {
         inherit system;
-        config = {
-          allowUnfree = true;
-        };
-      };
-
-      overlays = [
-        (final: prev: rec {
-          helix = pkgsUnstable.helix;
-          claude-code = pkgsUnstable.claude-code;
-          codex = pkgsUnstable.codex;
-          zed-editor = pkgsUnstable.zed-editor;
-        })
-      ];
-
-      mkSystem = import ./lib/mkSystem.nix {
-        inherit nixpkgs overlays inputs;
+        config.allowUnfree = true;
       };
     in
     {
-      nixosConfigurations.test-vm = mkSystem "test-vm" {
-        system = "${system}";
-        user = "okate";
-      };
+      homeConfigurations."okate" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = { inherit pkgsUnstable; };
 
-      nixosConfigurations.private-vm = mkSystem "private-vm" {
-        system = "${system}";
-        user = "okate";
-      };
-
-      nixosConfigurations.thinkpad-t14-gen5 = mkSystem "thinkpad-t14-gen5" {
-        system = "${system}";
-        user = "okate";
-      };
-
-      nixosConfigurations.thinkpad-z13 = mkSystem "thinkpad-z13" {
-        system = "${system}";
-        user = "okate";
-      };
-
-      nixosConfigurations.wsl = mkSystem "wsl" {
-        system = "${system}";
-        user = "okate";
-        wsl = true;
+        modules = [
+          nix-flatpak.homeManagerModules.nix-flatpak
+          ./users/okate/home.nix
+        ];
       };
     };
 }

@@ -29,6 +29,9 @@ export PATH=$PATH:$HOME/.local/confluent/confluent-7.6.0/bin
 # direnv
 eval "$(direnv hook zsh)"
 
+# devbox
+eval "$(devbox global shellenv)"
+
 # sheldon
 # eval "$(sheldon source)"
 

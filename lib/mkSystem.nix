@@ -9,13 +9,10 @@ let
   userOSConfig   = ../users/${user}/nixos.nix;
 
   home-manager = inputs.home-manager;
-
-  hardware = inputs.nixos-hardware;
 in nixpkgs.lib.nixosSystem {
   inherit system;
 
   modules = [
-    hardware.nixosModules.lenovo-thinkpad-t14
     { nixpkgs.overlays = overlays; }
     { nixpkgs.config.allowUnfree = true; }
     (if isWSL then inputs.nixos-wsl.nixosModules.default else {})
