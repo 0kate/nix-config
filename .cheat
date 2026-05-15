@@ -1,2 +1,5 @@
 # Switch home-manager config
 nix run home-manager/master -- switch --flake .#okate
+
+# Show home-manager news
+nix run home-manager/master -- news --flake .#okate
