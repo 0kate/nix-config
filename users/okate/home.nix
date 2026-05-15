@@ -5,6 +5,10 @@ let
 
   # ghostty
   ghosttySettings = import ./ghostty/settings.nix;
+  ghosttyFormat = pkgs.formats.keyValue {
+    listsAsDuplicateKeys = true;
+    mkKeyValue = pkgs.lib.generators.mkKeyValueDefault { } " = ";
+  };
 
   # helix
   helixSettings = import ./helix/settings.nix;
@@ -27,6 +31,10 @@ in
     };
   };
 
+  xdg.configFile = {
+    "ghostty/config".source = ghosttyFormat.generate "ghostty-config" ghosttySettings;
+  };
+
   home = {
     stateVersion = "25.11";
     username = "okate";
@@ -38,6 +46,7 @@ in
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-color-emoji
+      hackgen-nf-font
       udev-gothic-nf
 
       pkgsUnstable.claude-code
@@ -45,8 +54,7 @@ in
       difftastic
       direnv
       eza
-      fzf    
-      ghostty
+      fzf
       # gnomeExtensions.bluetooth-battery-meter
       # gnomeExtensions.clipboard-indicator
       # gnomeExtensions.dash-to-dock
@@ -67,14 +75,16 @@ in
       enable = true;
       packages = [
         "ca.desrt.dconf-editor"
-        "com.discordapp.Discord"
-        "com.slack.Slack"
-        "com.google.Chrome"
         "com.bitwarden.desktop"
+        "com.discordapp.Discord"
+        "com.github.marhkb.Pods"
+        "com.google.Chrome"
+        "com.slack.Slack"
+        "it.mijorus.gearlever"
+        "me.iepure.devtoolbox"
         "md.obsidian.Obsidian"
         "org.gnome.Extensions"
         "org.gnome.seahorse.Application"
-        "pp.devsuite.Ptyxis"
       ];
     };
   };
@@ -117,11 +127,6 @@ in
     direnv = {
       enable = true;
       enableZshIntegration = true;
-    };
-
-    ghostty = {
-      enable = true;
-      settings = ghosttySettings;
     };
 
     starship = {
@@ -205,10 +210,10 @@ in
         #   "pomodoro@arun.codito.in"
         #   "system-monitor@gnome-shell-extensions.gcampax.github.com"
         # ];
-        "extensions/paperwm/keybindings" = {
-          switch-next = "[ '<Super>period' '<Alt>d' '<Super>d' ]";
-          switch-previous = "[ '<Super>comma' '<Alt>s' '<Super>s' ]";
-        };
+        # "extensions/paperwm/keybindings" = {
+        #   switch-next = "[ '<Super>period' '<Alt>d' '<Super>d' ]";
+        #   switch-previous = "[ '<Super>comma' '<Alt>s' '<Super>s' ]";
+        # };
       };
       "org/gnome/TextEditor" = {
         "keybindings" = "vim";

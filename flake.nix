@@ -16,24 +16,33 @@
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak/?ref=latest";
     };
+
+    nixgl = {
+      url = "github:nix-community/nixGL";
+    };
   };
 
   outputs =
     {
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       nix-flatpak,
+      nixgl,
       ...
-    }@inputs:
+    }:
     let
       system = "x86_64-linux";
+
       pkgs = import nixpkgs {
         inherit system;
+        overlays = [ nixgl.overlay ];
         config.allowUnfree = true;
       };
 
-      pkgsUnstable = import inputs.nixpkgs-unstable {
+      pkgsUnstable = import nixpkgs-unstable {
         inherit system;
+        overlays = [ nixgl.overlay ];
         config.allowUnfree = true;
       };
     in
