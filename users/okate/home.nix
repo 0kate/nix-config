@@ -1,5 +1,15 @@
 { pkgs, config, lib, ... }:
 let
+  # GNOME extensions
+  enabledGnomeExtensions = [
+    "Bluetooth-Battery-Meter@maniacx.github.com"
+    "clipboard-indicator@tudmotu.com"
+    "dash-to-dock@micxgx.gmail.com"
+    "kimpanel@kde.org"
+    "paperwm@paperwm.github.com"
+    "system-monitor@gnome-shell-extensions.gcampax.github.com"
+  ];
+
   # starship
   starshipSettings = import ./starship/settings.nix;
 
@@ -35,14 +45,20 @@ in
     };
   };
 
-  xdg.configFile = {
-    "ghostty/config".source = ghosttyFormat.generate "ghostty-config" ghosttySettings;
+  xdg = {
+    configFile = {
+      "ghostty/config".source = ghosttyFormat.generate "ghostty-config" ghosttySettings;
+    };
+    localBinInPath = true;
   };
 
   home = {
     stateVersion = "25.11";
     username = "okate";
     homeDirectory = "/home/okate";
+    sessionVariables = {
+      NAVI_PATH = "/home/okate/.config/navi";
+    };
     packages = with pkgs; [
       dejavu_fonts
       fira-code
@@ -59,12 +75,7 @@ in
       direnv
       eza
       fzf
-      # gnomeExtensions.bluetooth-battery-meter
-      # gnomeExtensions.clipboard-indicator
-      # gnomeExtensions.dash-to-dock
-      # gnomeExtensions.paperwm
-      # gnomeExtensions.kimpanel
-      # gnomeExtensions.system-monitor
+      gnome-extensions-cli
       lazydocker
       navi
       nil
@@ -73,30 +84,50 @@ in
       yazi
     ];
     activation = {
-      integrateGhosttyDirect = config.lib.dag.entryAfter ["writeBoundary"] ''
-        echo "Install Ghostty via AppImage and Gear Lever."
+      installGnomeExtensions = config.lib.dag.entryAfter ["writeBoundary"] ''
+        export PATH=$PATH:${pkgs.gnome-extensions-cli}/bin
 
-        # Add required commands (curl, flatpak) to PATH
-        export PATH=$PATH:${pkgs.curl}/bin:${pkgs.flatpak}/bin
-
-        # Define the temporary file path and URL
-        APP_IMAGE_FILE="Ghostty-${ghosttyVersion}-x86_64.AppImage"
-        URL="https://github.com/pkgforge-dev/ghostty-appimage/releases/download/v${ghosttyVersion}/$APP_IMAGE_FILE"
-        TMP_FILE="/tmp/$APP_IMAGE_FILE"
-
-        # 1. Download the file to a temporary directory
-        curl -L -sS "$URL" -o "$TMP_FILE"
-        chmod +x "$TMP_FILE"
-
-        # 2. Integrate via Gear Lever CLI
-        flatpak run it.mijorus.gearlever --integrate --yes --replace "$TMP_FILE"
-
-        # 3. Clean up the temporary file (in case it was not moved)
-        rm -f "$TMP_FILE"
+        ${lib.concatMapStringsSep "\n" (uuid: ''
+          if [ ! -d "$HOME/.local/share/gnome-shell/extensions/${uuid}" ]; then
+            echo "Installing GNOME Extension: ${uuid}"
+            gext install "${uuid}" || echo "Failed to install ${uuid}, skipping..."
+          fi
+        '') enabledGnomeExtensions}
       '';
+
     };
   };
   
+  systemd.user.services.integrate-ghostty = {
+    Unit = {
+      Description = "Install Ghostty AppImage via Gear Lever";
+      After = [ "flatpak-managed-install.service" ];
+      Requires = [ "flatpak-managed-install.service" ];
+    };
+    Service = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      Environment = [
+        "PATH=${pkgs.curl}/bin:${pkgs.flatpak}/bin:/usr/bin:/bin"
+      ];
+      ExecStart = let
+        script = pkgs.writeShellScript "integrate-ghostty" ''
+          APP_IMAGE_FILE="Ghostty-${ghosttyVersion}-x86_64.AppImage"
+          TMP_FILE="/tmp/$APP_IMAGE_FILE"
+          URL="https://github.com/pkgforge-dev/ghostty-appimage/releases/download/v${ghosttyVersion}/$APP_IMAGE_FILE"
+
+          curl -L -sS "$URL" -o "$TMP_FILE"
+          chmod +x "$TMP_FILE"
+          flatpak run it.mijorus.gearlever --integrate --yes --replace "$TMP_FILE"
+          rm -f "$TMP_FILE"
+        '';
+      in "${script}";
+    };
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+  };
+
   services = {
     flatpak = {
       enable = true;
@@ -106,6 +137,7 @@ in
         "com.discordapp.Discord"
         "com.github.marhkb.Pods"
         "com.google.Chrome"
+        "com.mattjakeman.ExtensionManager"
         "com.slack.Slack"
         "it.mijorus.gearlever"
         "me.iepure.devtoolbox"
@@ -243,22 +275,7 @@ in
         xkb-options = [ "ctrl:swapcaps" ];
       };
       "org/gnome/shell" = {
-        enabled-extensions = [
-          "Bluetooth-Battery-Meter@maniacx.github.com"
-          "clipboard-indicator@tudmotu.com"
-          "dash-to-dock@micxgx.gmail.com"
-          "kimpanel@kde.org"
-          "paperwm@paperwm.github.com"
-          "system-monitor@gnome-shell-extensions.gcampax.github.com"
-        ];
-        disabled-extensions = [
-          "background-logo@fedorahosted.org"
-          "bluetooth-battery-monitor@v8v88v8v88.com"
-          "dash-to-panel@jderose9.github.com"
-          "just-perfection-desktop@just-perfection"
-          "sysmonitor@talhasiddique7"
-          "window-list@gnome-shell-extensions.gcampax.github.com"
-        ];
+        enabled-extensions = enabledGnomeExtensions;
         favorite-apps = [
           "org.gnome.Calendar.desktop"
           "org.gnome.Nautilus.desktop"
@@ -268,6 +285,7 @@ in
           "com.slack.Slack.desktop"
           "ghostty.desktop"
           "md.obsidian.Obsidian.desktop"
+          "com.github.marhkb.Pods.desktop"
         ];
       };
       "org/gnome/shell/extensions/paperwm" = {
