@@ -7,7 +7,7 @@ let
     "dash-to-dock@micxgx.gmail.com"
     "kimpanel@kde.org"
     "paperwm@paperwm.github.com"
-    "system-monitor@gnome-shell-extensions.gcampax.github.com"
+    "Vitals@CoreCoding.com"
   ];
 
   # starship
@@ -136,6 +136,7 @@ in
         "com.bitwarden.desktop"
         "com.discordapp.Discord"
         "com.github.marhkb.Pods"
+        "com.github.tenderowl.frog"
         "com.google.Chrome"
         "com.mattjakeman.ExtensionManager"
         "com.slack.Slack"
