@@ -76,6 +76,7 @@ in
       eza
       fzf
       gnome-extensions-cli
+      jj-starship
       lazydocker
       navi
       nil

@@ -6,8 +6,7 @@
     "[](bg:color_bg1 fg:color_bg3)"
     "$directory"
     "[](fg:color_bg1 bg:color_lightgray)"
-    "$git_branch"
-    "$git_status"
+    "$\{custom.jj\}"
     "[ ](fg:color_lightgray)"
     "$fill"
     "$nix_shell"
@@ -120,14 +119,11 @@
   };
 
   git_branch = {
-    symbol = " ";
-    style = "bg:color_lightgray";
-    format = "[[ $symbol$branch ](fg:color_fg0 bg:color_lightgray)]($style)";
+    disabled = true;
   };
 
   git_status = {
-    style = "bg:color_lightgray";
-    format = "[[($all_status$ahead_behind)](fg:color_fg0 bg:color_lightgray)]($style)";
+    disabled = true;
   };
 
   nix_shell = {
@@ -227,5 +223,15 @@
     symbol = " ";
     style = "fg:color_yellow";
     format = "[ $symbol($version) ]($style)";
+  };
+
+  custom = {
+    jj = {
+      when = "jj-starship detect";
+      symbol = "";
+      shell = [ "jj-starship" "--no-symbol" "--no-jj-prefix" "--no-color" "--no-git-prefix" ];
+      style = "bg:color_lightgray";
+      format = "[[ $symbol $output ](fg:color_fg0 bg:color_lightgray)]($style)";
+    };
   };
 }
