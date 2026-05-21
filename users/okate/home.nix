@@ -217,18 +217,8 @@ in
         };
       };
       ignores = [
-        "devbox.json"
-        "devbox.lock"
-        "devenv.lock"
-        "devenv.local.nix"
-        "devenv.nix"
-        "devenv.yaml"
-        "shell.nix"
         ".envrc"
-        ".devenv*"
         ".direnv"
-        ".pre-commit-config.yaml"
-        ".venv"
         ".claude/settings.local.json"
       ];
     };
