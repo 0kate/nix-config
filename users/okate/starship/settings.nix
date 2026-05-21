@@ -229,7 +229,7 @@
     jj = {
       when = "jj-starship detect";
       symbol = "";
-      shell = [ "jj-starship" "--no-symbol" "--no-jj-prefix" "--no-color" "--no-git-prefix" ];
+      shell = [ "jj-starship" "--no-symbol" "--no-jj-prefix" "--no-color" "--no-git-prefix" "--truncate-name" "50" "--bookmarks-display-limit" "1" ];
       style = "bg:color_lightgray";
       format = "[[ $symbol $output ](fg:color_fg0 bg:color_lightgray)]($style)";
     };
