@@ -39,10 +39,6 @@ in
     username = "okate";
     homeDirectory = "/home/okate";
 
-    sessionVariables = {
-      NAVI_PATH = "/home/okate/.config/navi";
-    };
-
     packages = with pkgs; [
       dejavu_fonts
       fira-code
