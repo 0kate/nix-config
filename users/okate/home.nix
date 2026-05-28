@@ -104,43 +104,16 @@ in
 
     bash = {
       enable = true;
+      enableVteIntegration = true;
 
       bashrcExtra = ''
         [[ $- == *i* ]] && source -- ${pkgs.blesh}/share/blesh/ble.sh --attach=none
-
         [[ ! $BLE_VERSION- ]] || ble-attach
       '';
-    };
-
-    zsh = {
-      enable = true;
-      dotDir = "${config.xdg.configHome}/zsh";
-      initContent = builtins.readFile ./zsh/extrarc;
-      enableCompletion = true;
-      autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
 
       shellAliases = {
         jjp = "jj --config=ui.paginate=auto";
-        lgd = "lazydocker";
-        lgg = "lazygit";
-        lgs = "lazysql";
-        ls = "eza --icons";
-        yz = "yazi";
-        zj = "zellij";
       };
-
-      plugins = [
-        {
-          name = "zsh-autocomplete";
-          src = pkgs.fetchFromGitHub {
-            owner = "marlonrichert";
-            repo = "zsh-autocomplete";
-            rev = "24.09.04";
-            sha256 = "o8IQszQ4/PLX1FlUvJpowR2Tev59N8lI20VymZ+Hp4w=";
-          };
-        }
-      ];
     };
 
     difftastic = {
@@ -178,6 +151,7 @@ in
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
+      icons = "auto";
     };
 
     fzf = {
@@ -243,6 +217,7 @@ in
         color-scheme = "prefer-dark";
         clock-format = "24h";
         gtk-key-theme = "Emacs";
+        show-battery-percentage = true;
       };
       "org/gnome/desktop/input-sources" = {
         sources = [ (lib.hm.gvariant.mkTuple [ "xkb" "us" ]) ];
@@ -264,6 +239,7 @@ in
         ];
       };
       "org/gnome/shell/extensions/paperwm" = {
+        default-focus-mode = 1;
         horizontal-margin = 20;
         selection-border-radius-bottom = 10;
         selection-border-radius-top = 10;
@@ -285,6 +261,20 @@ in
       };
       "org/gnome/TextEditor" = {
         keybindings = "vim";
+      };
+      "org/gnome/Ptyxis" = {
+        font-name = "HackGen Console NF 12";
+        use-system-font = false;
+      };
+      "org/gnome/shell/extensions/vitals" = {
+        alphabetize = true;
+        fixed-widths = true;
+        hot-sensors = [ "_memory_usage_" "_processor_usage_" "__network-tx_max__" "__network-rx_max__" ];
+        icon-style = 1;
+        menu-centered = true;
+        show-battery = true;
+        show-gpu = true;
+        use-higher-precision = false;
       };
     };
   };
