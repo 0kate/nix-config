@@ -88,7 +88,6 @@ in
         "com.google.Chrome"
         "com.mattjakeman.ExtensionManager"
         "com.slack.Slack"
-        "it.mijorus.gearlever"
         "me.iepure.devtoolbox"
         "org.gnome.Builder"
         "org.gnome.Extensions"
