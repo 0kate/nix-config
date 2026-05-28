@@ -1,5 +1,0 @@
-# Switch home-manager config
-./scripts/switch-home.sh
-
-# Show home-manager news
-./scripts/show-news.sh

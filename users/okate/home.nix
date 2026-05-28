@@ -127,39 +127,33 @@ in
     direnv = {
       enable = true;
       enableBashIntegration = true;
-      enableZshIntegration = true;
     };
 
     starship = {
       enable = true;
       enableBashIntegration = true;
-      enableZshIntegration = true;
       settings = starshipSettings;
     };
 
     navi = {
       enable = true;
       enableBashIntegration = true;
-      enableZshIntegration = true;
     };
 
     eza = {
       enable = true;
       enableBashIntegration = true;
-      enableZshIntegration = true;
       icons = "auto";
     };
 
     fzf = {
       enable = true;
       enableBashIntegration = true;
-      enableZshIntegration = true;
     };
 
     zoxide = {
       enable = true;
       enableBashIntegration = true;
-      enableZshIntegration = true;
     };
 
     git = {
