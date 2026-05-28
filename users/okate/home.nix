@@ -194,6 +194,7 @@ in
     vim = {
       enable = true;
       defaultEditor = true;
+      packageConfigurable = pkgs.vim;
       settings = {
         number = true;
       };
