@@ -12,21 +12,6 @@ let
 
   # starship
   starshipSettings = import ./starship/settings.nix;
-
-  # oh-my-posh
-  ohMyPoshSettings = import ./oh-my-posh/settings.nix;
-
-  # ghostty
-  ghosttyVersion = "1.3.1";
-  ghosttySettings = import ./ghostty/settings.nix;
-  ghosttyFormat = pkgs.formats.keyValue {
-    listsAsDuplicateKeys = true;
-    mkKeyValue = pkgs.lib.generators.mkKeyValueDefault { } " = ";
-  };
-
-  # helix
-  helixSettings = import ./helix/settings.nix;
-  helixLanguages = import ./helix/languages.nix;
 in
 {
   i18n.inputMethod = {
@@ -46,9 +31,6 @@ in
   };
 
   xdg = {
-    configFile = {
-      "ghostty/config".source = ghosttyFormat.generate "ghostty-config" ghosttySettings;
-    };
     localBinInPath = true;
   };
 
@@ -56,9 +38,11 @@ in
     stateVersion = "25.11";
     username = "okate";
     homeDirectory = "/home/okate";
+
     sessionVariables = {
       NAVI_PATH = "/home/okate/.config/navi";
     };
+
     packages = with pkgs; [
       dejavu_fonts
       fira-code
@@ -69,21 +53,14 @@ in
       hackgen-nf-font
       udev-gothic-nf
 
-      claude-code
+      blesh
       devbox
-      difftastic
-      direnv
-      eza
-      fzf
       gnome-extensions-cli
       jj-starship
-      lazydocker
-      navi
       nil
       nixpkgs-fmt
-      ripgrep
-      yazi
     ];
+
     activation = {
       installGnomeExtensions = config.lib.dag.entryAfter ["writeBoundary"] ''
         export PATH=$PATH:${pkgs.gnome-extensions-cli}/bin
@@ -98,36 +75,6 @@ in
 
     };
   };
-  
-  systemd.user.services.integrate-ghostty = {
-    Unit = {
-      Description = "Install Ghostty AppImage via Gear Lever";
-      After = [ "flatpak-managed-install.service" ];
-      Requires = [ "flatpak-managed-install.service" ];
-    };
-    Service = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      Environment = [
-        "PATH=${pkgs.curl}/bin:${pkgs.flatpak}/bin:/usr/bin:/bin"
-      ];
-      ExecStart = let
-        script = pkgs.writeShellScript "integrate-ghostty" ''
-          APP_IMAGE_FILE="Ghostty-${ghosttyVersion}-x86_64.AppImage"
-          TMP_FILE="/tmp/$APP_IMAGE_FILE"
-          URL="https://github.com/pkgforge-dev/ghostty-appimage/releases/download/v${ghosttyVersion}/$APP_IMAGE_FILE"
-
-          curl -L -sS "$URL" -o "$TMP_FILE"
-          chmod +x "$TMP_FILE"
-          flatpak run it.mijorus.gearlever --integrate --yes --replace "$TMP_FILE"
-          rm -f "$TMP_FILE"
-        '';
-      in "${script}";
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-  };
 
   services = {
     flatpak = {
@@ -135,16 +82,17 @@ in
       packages = [
         "ca.desrt.dconf-editor"
         "com.bitwarden.desktop"
-        "com.discordapp.Discord"
         "com.github.marhkb.Pods"
+        "com.github.tchx84.Flatseal"
         "com.github.tenderowl.frog"
         "com.google.Chrome"
         "com.mattjakeman.ExtensionManager"
         "com.slack.Slack"
         "it.mijorus.gearlever"
         "me.iepure.devtoolbox"
-        "md.obsidian.Obsidian"
+        "org.gnome.Builder"
         "org.gnome.Extensions"
+        "org.gnome.World.Iotas"
         "org.gnome.seahorse.Application"
       ];
     };
@@ -153,6 +101,16 @@ in
   programs = {
     home-manager = {
       enable = true;
+    };
+
+    bash = {
+      enable = true;
+
+      bashrcExtra = ''
+        [[ $- == *i* ]] && source -- ${pkgs.blesh}/share/blesh/ble.sh --attach=none
+
+        [[ ! $BLE_VERSION- ]] || ble-attach
+      '';
     };
 
     zsh = {
@@ -186,25 +144,52 @@ in
       ];
     };
 
+    difftastic = {
+      enable = true;
+    };
+
+    ripgrep = {
+      enable = true;
+    };
+
+    claude-code = {
+      enable = true;
+    };
+
     direnv = {
       enable = true;
+      enableBashIntegration = true;
       enableZshIntegration = true;
     };
 
-    # oh-my-posh = {
-    #   enable = true;
-    #   enableZshIntegration = true;
-    #   settings = ohMyPoshSettings;
-    # };
-
     starship = {
       enable = true;
+      enableBashIntegration = true;
       enableZshIntegration = true;
       settings = starshipSettings;
     };
 
     navi = {
       enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+    };
+
+    eza = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+    };
+
+    fzf = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+    };
+
+    zoxide = {
+      enable = true;
+      enableBashIntegration = true;
       enableZshIntegration = true;
     };
 
@@ -239,15 +224,13 @@ in
       };
     };
 
-    helix = {
+    rclone = {
       enable = true;
-      defaultEditor = true;
-      settings = helixSettings;
-      languages = helixLanguages;
     };
 
     vim = {
       enable = true;
+      defaultEditor = true;
       settings = {
         number = true;
       };
@@ -275,9 +258,10 @@ in
           "org.gnome.Software.desktop"
           "com.google.Chrome.desktop"
           "com.slack.Slack.desktop"
-          "ghostty.desktop"
-          "md.obsidian.Obsidian.desktop"
+          "org.gnome.Ptyxis.desktop"
+          "org.gnome.Builder.desktop"
           "com.github.marhkb.Pods.desktop"
+          "org.gnome.World.Iotas.desktop"
         ];
       };
       "org/gnome/shell/extensions/paperwm" = {
