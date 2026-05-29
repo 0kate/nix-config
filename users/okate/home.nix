@@ -31,6 +31,7 @@ in
   };
 
   xdg = {
+    enable = true;
     localBinInPath = true;
   };
 
@@ -40,8 +41,8 @@ in
     homeDirectory = "/home/okate";
 
     file = {
-      ".gitconfig".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/git/config";
-      ".gitignore_global".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/git/ignore";
+      ".gitconfig".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/git/config";
+      ".gitignore_global".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/git/ignore";
     };
 
     packages = with pkgs; [
@@ -254,9 +255,6 @@ in
         attach-modal-dialogs = false;
         edge-tiling = false;
         workspaces-only-on-primary = false;
-      };
-      "org/gnome/TextEditor" = {
-        keybindings = "vim";
       };
       "org/gnome/Ptyxis" = {
         font-name = "HackGen Console NF 12";
