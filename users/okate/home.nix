@@ -58,7 +58,6 @@ in
       blesh
       devbox
       gnome-extensions-cli
-      jj-starship
       nil
       nixpkgs-fmt
     ];
