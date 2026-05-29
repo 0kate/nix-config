@@ -39,6 +39,11 @@ in
     username = "okate";
     homeDirectory = "/home/okate";
 
+    file = {
+      ".gitconfig".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/git/config";
+      ".gitignore_global".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.config/git/ignore";
+    };
+
     packages = with pkgs; [
       dejavu_fonts
       fira-code
