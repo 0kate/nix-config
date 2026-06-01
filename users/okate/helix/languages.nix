@@ -1,11 +1,4 @@
 {
-  language-server = {
-    vscode-json-languageserver = {
-      command = "vscode-json-languageserver";
-      args = [ "--stdio" ];
-    };
-  };
-
   language = [
     {
       name = "nix";

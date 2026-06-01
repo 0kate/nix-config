@@ -23,7 +23,6 @@ let
 
   # helix
   helixSettings = import ./helix/settings.nix;
-  helixLanguages = import ./helix/languages.nix;
 in
 {
   i18n.inputMethod = {
@@ -78,8 +77,8 @@ in
     ];
 
     activation = {
-      installGnomeExtensions = config.lib.dag.entryAfter ["writeBoundary"] ''
-        export PATH=$PATH:${pkgs.gnome-extensions-cli}/bin
+      installGnomeExtensions = config.lib.dag.entryAfter [ "writeBoundary" "installPackages" ] ''
+        export PATH=${lib.makeBinPath [ pkgs.gnome-extensions-cli ]}$PATH
 
         ${lib.concatMapStringsSep "\n" (uuid: ''
           if [ ! -d "$HOME/.local/share/gnome-shell/extensions/${uuid}" ]; then
@@ -89,6 +88,22 @@ in
         '') enabledGnomeExtensions}
       '';
 
+      installGhosttyAppImage = config.lib.dag.entryAfter [ "writeBoundary" "installPackages" "flatpak-managed-install" ] ''
+        export PATH=${lib.makeBinPath [ pkgs.curl pkgs.coreutils pkgs.flatpak ]}:$PATH
+
+        if flatpak run it.mijorus.gearlever --list-installed 2>/dev/null | grep -qi "ghostty"; then
+          echo "Ghostty is already installed."
+        else
+          APP_IMAGE_FILE="Ghostty-${ghosttyVersion}-x86_64.AppImage"
+          TMP_FILE="/tmp/$APP_IMAGE_FILE"
+          URL="https://github.com/pkgforge-dev/ghostty-appimage/releases/download/v${ghosttyVersion}/$APP_IMAGE_FILE"
+
+          curl -L -sS "$URL" -o "$TMP_FILE"
+          chmod +x "$TMP_FILE"
+          flatpak run it.mijorus.gearlever --integrate --yes --replace "$TMP_FILE"
+          rm -f "$TMP_FILE"
+        fi
+      '';
     };
   };
 
@@ -101,12 +116,12 @@ in
         "com.github.marhkb.Pods"
         "com.github.tchx84.Flatseal"
         "com.github.tenderowl.frog"
+        "org.gnome.Builder"
         "com.google.Chrome"
         "com.mattjakeman.ExtensionManager"
         "com.slack.Slack"
         "it.mijorus.gearlever"
         "me.iepure.devtoolbox"
-        "org.gnome.Builder"
         "org.gnome.Extensions"
         "org.gnome.World.Iotas"
         "org.gnome.seahorse.Application"
@@ -115,10 +130,6 @@ in
   };
 
   programs = {
-    home-manager = {
-      enable = true;
-    };
-
     bash = {
       enable = true;
       enableVteIntegration = true;
@@ -133,17 +144,11 @@ in
       };
     };
 
-    difftastic = {
-      enable = true;
-    };
-
-    ripgrep = {
-      enable = true;
-    };
-
-    claude-code = {
-      enable = true;
-    };
+    claude-code.enable = true;
+    difftastic.enable = true;
+    home-manager.enable = true;
+    rclone.enable = true;
+    ripgrep.enable = true;
 
     direnv = {
       enable = true;
@@ -175,6 +180,7 @@ in
     zoxide = {
       enable = true;
       enableBashIntegration = true;
+      options = [ "--cmd cd" ];
     };
 
     git = {
@@ -208,15 +214,10 @@ in
       };
     };
 
-    rclone = {
-      enable = true;
-    };
-
     helix = {
       enable = true;
       defaultEditor = true;
       settings = helixSettings;
-      languages = helixLanguages;
     };
 
     vim = {
@@ -250,8 +251,9 @@ in
           "org.gnome.Software.desktop"
           "com.google.Chrome.desktop"
           "com.slack.Slack.desktop"
-          "org.gnome.Ptyxis.desktop"
-          "org.gnome.Builder.desktop"
+          "org.gnome.Ptyxis"
+          "org.gnome.Builder"
+          "de.wwwtech.gitte.desktop"
           "com.github.marhkb.Pods.desktop"
           "org.gnome.World.Iotas.desktop"
         ];
@@ -276,10 +278,6 @@ in
         attach-modal-dialogs = false;
         edge-tiling = false;
         workspaces-only-on-primary = false;
-      };
-      "org/gnome/Ptyxis" = {
-        font-name = "HackGen Console NF 12";
-        use-system-font = false;
       };
       "org/gnome/shell/extensions/vitals" = {
         alphabetize = true;
