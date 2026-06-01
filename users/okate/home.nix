@@ -216,12 +216,12 @@ in
 
     helix = {
       enable = true;
-      defaultEditor = true;
       settings = helixSettings;
     };
 
     vim = {
       enable = true;
+      defaultEditor = true;
       packageConfigurable = pkgs.vim;
       settings = {
         number = true;
