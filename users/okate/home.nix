@@ -12,6 +12,18 @@ let
 
   # starship
   starshipSettings = import ./starship/settings.nix;
+
+  # ghostty
+  ghosttyVersion = "1.3.1";
+  ghosttySettings = import ./ghostty/settings.nix;
+  ghosttyFormat = pkgs.formats.keyValue {
+    listsAsDuplicateKeys = true;
+    mkKeyValue = pkgs.lib.generators.mkKeyValueDefault { } " = ";
+  };
+
+  # helix
+  helixSettings = import ./helix/settings.nix;
+  helixLanguages = import ./helix/languages.nix;
 in
 {
   i18n.inputMethod = {
@@ -33,6 +45,9 @@ in
   xdg = {
     enable = true;
     localBinInPath = true;
+    configFile = {
+      "ghostty/config".source = ghosttyFormat.generate "ghostty-config" ghosttySettings;
+    };
   };
 
   home = {
@@ -89,6 +104,7 @@ in
         "com.google.Chrome"
         "com.mattjakeman.ExtensionManager"
         "com.slack.Slack"
+        "it.mijorus.gearlever"
         "me.iepure.devtoolbox"
         "org.gnome.Builder"
         "org.gnome.Extensions"
@@ -196,9 +212,15 @@ in
       enable = true;
     };
 
-    vim = {
+    helix = {
       enable = true;
       defaultEditor = true;
+      settings = helixSettings;
+      languages = helixLanguages;
+    };
+
+    vim = {
+      enable = true;
       packageConfigurable = pkgs.vim;
       settings = {
         number = true;
