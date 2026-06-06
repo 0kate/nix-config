@@ -120,6 +120,7 @@ in
         "com.google.Chrome"
         "com.mattjakeman.ExtensionManager"
         "com.slack.Slack"
+        "io.gitlab.news_flash.NewsFlash"
         "it.mijorus.gearlever"
         "me.iepure.devtoolbox"
         "org.gnome.Extensions"
@@ -262,6 +263,7 @@ in
           "de.wwwtech.gitte.desktop"
           "com.github.marhkb.Pods.desktop"
           "org.gnome.World.Iotas.desktop"
+          "io.gitlab.news_flash.NewsFlash.desktop"
         ];
       };
       "org/gnome/shell/extensions/paperwm" = {
