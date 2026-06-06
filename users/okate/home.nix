@@ -136,8 +136,14 @@ in
 
       bashrcExtra = ''
         [[ $- == *i* ]] && source -- ${pkgs.blesh}/share/blesh/ble.sh --attach=none
-        [[ ! $BLE_VERSION- ]] || ble-attach
       '';
+
+      initExtra = lib.mkMerge [
+        ''eval "$(devbox global shellenv)"''
+        # ble-attach must run after all other integrations (starship, zoxide, direnv, etc.)
+        # so that ble.sh can properly integrate with their PROMPT_COMMAND hooks
+        (lib.mkOrder 9999 ''[[ ! $BLE_VERSION- ]] || ble-attach'')
+      ];
 
       shellAliases = {
         jjp = "jj --config=ui.paginate=auto";
@@ -251,8 +257,8 @@ in
           "org.gnome.Software.desktop"
           "com.google.Chrome.desktop"
           "com.slack.Slack.desktop"
-          "org.gnome.Ptyxis"
-          "org.gnome.Builder"
+          "org.gnome.Ptyxis.desktop"
+          "org.gnome.Builder.desktop"
           "de.wwwtech.gitte.desktop"
           "com.github.marhkb.Pods.desktop"
           "org.gnome.World.Iotas.desktop"
