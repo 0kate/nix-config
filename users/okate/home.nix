@@ -297,6 +297,20 @@ in
         show-gpu = true;
         use-higher-precision = false;
       };
+      "org/gnome/builder/editor" = {
+        style-scheme-name = "Adwaita-dark";
+        keybindings = "vim";
+        use-custom-font = true;
+        font-name = "HackGen35 Console NF 13";
+      };
+      "org/gnome/builder/terminal" = {
+        use-custom-font = true;
+        font-name = "HackGen35 Console NF 13";
+      };
+      "org/gnome/builder/editor/language/nix" = {
+        insert-spaces-instead-of-tabs = true;
+        tab-width = 2;
+      };
     };
   };
 }
