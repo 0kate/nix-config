@@ -1,5 +1,6 @@
 {
-  font-family = "HackGen Console NF"; 
+  font-family = "HackGen Console NF";
+  font-size = 13.5;
   font-feature = "-calt";
 
   theme = "GitHub Dark Dimmed";
