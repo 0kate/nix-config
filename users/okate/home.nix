@@ -115,7 +115,6 @@ in
         "com.bitwarden.desktop"
         "com.github.marhkb.Pods"
         "com.github.tchx84.Flatseal"
-        "com.github.tenderowl.frog"
         "org.gnome.Builder"
         "com.google.Chrome"
         "com.mattjakeman.ExtensionManager"
