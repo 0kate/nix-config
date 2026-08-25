@@ -3,7 +3,7 @@
   font-size = 13.5;
   font-feature = "-calt";
 
-  theme = "GitHub Dark Dimmed";
+  theme = "Adwaita Dark";
 
   # NOTE: shell integration forces a bar cursor at the prompt; `no-cursor`
   # lets it fall back to `cursor-style` (block).
