@@ -136,6 +136,8 @@ in
 
       bashrcExtra = ''
         [[ $- == *i* ]] && source -- ${pkgs.blesh}/share/blesh/ble.sh --attach=none
+        # Suppress the "[ble: EOF]" marker shown when output lacks a trailing newline
+        [[ $BLE_VERSION ]] && bleopt prompt_eol_mark=
       '';
 
       initExtra = lib.mkMerge [
