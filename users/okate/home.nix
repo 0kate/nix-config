@@ -142,6 +142,13 @@ in
 
       initExtra = lib.mkMerge [
         ''eval "$(devbox global shellenv)"''
+        # Load aliases/functions that are managed outside of Nix.
+        # Sourced late so that it can override anything defined above.
+        (lib.mkOrder 1500 ''
+          if [[ -r ~/.bash_aliases ]]; then
+            source ~/.bash_aliases
+          fi
+        '')
         # ble-attach must run after all other integrations (starship, zoxide, direnv, etc.)
         # so that ble.sh can properly integrate with their PROMPT_COMMAND hooks
         (lib.mkOrder 9999 ''[[ ! $BLE_VERSION- ]] || ble-attach'')
