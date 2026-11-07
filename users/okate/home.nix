@@ -20,9 +20,6 @@ let
     listsAsDuplicateKeys = true;
     mkKeyValue = pkgs.lib.generators.mkKeyValueDefault { } " = ";
   };
-
-  # helix
-  helixSettings = import ./helix/settings.nix;
 in
 {
   i18n.inputMethod = {
@@ -153,10 +150,6 @@ in
         # so that ble.sh can properly integrate with their PROMPT_COMMAND hooks
         (lib.mkOrder 9999 ''[[ ! $BLE_VERSION- ]] || ble-attach'')
       ];
-
-      shellAliases = {
-        jjp = "jj --config=ui.paginate=auto";
-      };
     };
 
     claude-code.enable = true;
@@ -211,27 +204,6 @@ in
         ".direnv"
         ".claude/settings.local.json"
       ];
-    };
-
-    jujutsu = {
-      enable = true;
-      settings = {
-        user = {
-          name = "0kate";
-          email = "o.keito317@gmail.com";
-        };
-        ui = {
-          paginate = "never";
-          pager = ":builtin";
-          default-command = "log";
-          diff-formatter = "difft";
-        };
-      };
-    };
-
-    helix = {
-      enable = true;
-      settings = helixSettings;
     };
 
     vim = {
