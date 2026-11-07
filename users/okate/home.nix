@@ -239,11 +239,7 @@ in
           "com.google.Chrome.desktop"
           "com.slack.Slack.desktop"
           "ghostty.desktop"
-          "orca.desktop"
-          "de.wwwtech.gitte.desktop"
-          "com.github.marhkb.Pods.desktop"
           "org.gnome.World.Iotas.desktop"
-          "io.gitlab.news_flash.NewsFlash.desktop"
         ];
       };
       "org/gnome/shell/extensions/paperwm" = {
