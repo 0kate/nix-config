@@ -20,6 +20,12 @@ let
     listsAsDuplicateKeys = true;
     mkKeyValue = pkgs.lib.generators.mkKeyValueDefault { } " = ";
   };
+
+  # herdr
+  herdrSettings = import ./herdr/settings.nix;
+  herdrPlugins = [
+    { id = "persiyanov.reviewr"; repo = "persiyanov/herdr-reviewr"; }
+  ];
 in
 {
   i18n.inputMethod = {
@@ -83,6 +89,30 @@ in
             gext install "${uuid}" || echo "Failed to install ${uuid}, skipping..."
           fi
         '') enabledGnomeExtensions}
+      '';
+
+      installHerdrPlugins = config.lib.dag.entryAfter [ "writeBoundary" "installPackages" ] ''
+        export PATH=${lib.makeBinPath [
+          pkgs.herdr
+          pkgs.bash
+          pkgs.coreutils
+          pkgs.curl
+          pkgs.gawk
+          pkgs.git
+          pkgs.gnugrep
+          pkgs.gnused
+          pkgs.gnutar
+          pkgs.gzip
+        ]}:$PATH
+
+        installed=$(herdr plugin list --json 2>/dev/null || echo "")
+
+        ${lib.concatMapStringsSep "\n" (plugin: ''
+          if ! printf '%s' "$installed" | grep -q '"plugin_id":"${plugin.id}"'; then
+            echo "Installing Herdr plugin: ${plugin.repo}"
+            herdr plugin install "${plugin.repo}" --yes || echo "Failed to install ${plugin.repo}, skipping..."
+          fi
+        '') herdrPlugins}
       '';
 
       installGhosttyAppImage = config.lib.dag.entryAfter [ "writeBoundary" "installPackages" "flatpak-managed-install" ] ''
@@ -204,6 +234,11 @@ in
         ".direnv"
         ".claude/settings.local.json"
       ];
+    };
+
+    herdr = {
+      enable = true;
+      settings = herdrSettings;
     };
 
     vim = {
