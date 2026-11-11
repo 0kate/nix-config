@@ -26,6 +26,11 @@ let
   herdrPlugins = [
     { id = "persiyanov.reviewr"; repo = "persiyanov/herdr-reviewr"; }
   ];
+  herdrNewWorkspace = pkgs.writeShellApplication {
+    name = "herdr-new-workspace";
+    runtimeInputs = with pkgs; [ coreutils direnv findutils fzf git jq ];
+    text = builtins.readFile ./herdr/new-workspace.sh;
+  };
 in
 {
   i18n.inputMethod = {
@@ -77,6 +82,8 @@ in
       gnome-extensions-cli
       nil
       nixpkgs-fmt
+
+      herdrNewWorkspace
     ];
 
     activation = {
